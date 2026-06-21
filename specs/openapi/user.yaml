@@ -1,0 +1,79 @@
+openapi: 3.0.3
+
+info:
+  title: User Profile API
+  version: 1.0.0
+  description: A service to retrieve profile and context details for a user.
+  contact:
+    name: CodeProof
+    email: codeproof@devs.io
+
+servers:
+  - url: http://user-profile:3000
+    description: Local development server
+
+tags:
+  - name: Profile
+
+paths:
+  /profile:
+    get:
+      operationId: getUserProfile
+      description: Retrieves profile details for a user identified by their email.
+      tags:
+      - Profile
+      parameters:
+      - name: userEmail
+        in: query
+        description: The unique email identifier of the user.
+        required: true
+        schema:
+          type: string
+          format: email
+          example: student@codeproof.io
+      responses:
+        '200':
+          description: Successful retrieval of profile data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ProfileResponse:
+      type: object
+      required:
+        - userId
+        - profileCode
+      properties:
+        userId:
+          type: string
+        profileCode:
+          type: string
+          example: "STUDENT-CONTEXT"
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          example: USER_NOT_FOUND
+        message:
+          type: string
+          example: The requested user email does not exist.

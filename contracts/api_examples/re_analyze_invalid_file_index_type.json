@@ -1,0 +1,22 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/re-analyze",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "studentId": "student_1718600000000_0",
+      "fileIndex": "zero"
+    }
+  },
+  "http-response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "error": "Missing or invalid required parameters: studentId, fileIndex"
+    }
+  }
+}

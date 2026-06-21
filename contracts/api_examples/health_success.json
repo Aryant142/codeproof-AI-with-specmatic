@@ -1,0 +1,20 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/api/health"
+  },
+  "http-response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "ok",
+      "apiInitialized": true,
+      "isGeminiQuotaExceeded": false,
+      "isGroqQuotaExceeded": false,
+      "hasGroq": true,
+      "activeEngine": "Groq (Llama 3.3)"
+    }
+  }
+}

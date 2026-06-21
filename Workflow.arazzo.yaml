@@ -1,0 +1,98 @@
+arazzo: "1.0.0"
+info:
+  title: "CodeProof Analysis Workflow"
+  version: "1.0.0"
+sourceDescriptions:
+  - name: "UserApi"
+    url: "./specs/openapi/user.yaml"
+    type: "openapi"
+  - name: "InsightApi"
+    url: "./specs/openapi/insight.yaml"
+    type: "openapi"
+  - name: "AsyncAnalysisApi"
+    url: "./specs/asyncapi/analysis.yaml"
+    type: "openapi"   # Arazzo 1.0.0 only allows "openapi"|"arazzo"; Specmatic detects AsyncAPI from file content
+  - name: "ResourceApi"
+    url: "./specs/openapi/resource.yaml"
+    type: "openapi"
+workflows:
+  - workflowId: "Workflow"
+    summary: "CodeProof full analysis pipeline"
+    steps:
+      - stepId: "getUserProfile"
+        operationId: "$sourceDescriptions.UserApi.getUserProfile"
+        parameters:
+          - name: "userEmail"
+            in: "query"
+            value: "student@codeproof.io"
+        successCriteria:
+          - condition: "$statusCode == 200"
+        outputs:
+          userId: "$response.body#/userId"
+          profileCode: "$response.body#/profileCode"
+
+      - stepId: "getInsights"
+        operationId: "$sourceDescriptions.InsightApi.getInsights"
+        parameters:
+          - name: "profileCode"
+            in: "query"
+            value: "$steps.getUserProfile.outputs.profileCode"
+        successCriteria:
+          - condition: "$statusCode == 200"
+        outputs:
+          productId: "$response.body#/0/productId"
+          inventory: "$response.body#/0/inventory"
+
+      - stepId: "submitAnalysisSend"
+        operationId: "$sourceDescriptions.AsyncAnalysisApi.submitAnalysis"
+        action: "send"
+        requestBody:
+          payload:
+            userId: "$steps.getUserProfile.outputs.userId"
+            productId: "$steps.getInsights.outputs.productId"
+            inventory: "$steps.getInsights.outputs.inventory"
+
+      - stepId: "submitAnalysisReceive"
+        operationId: "$sourceDescriptions.AsyncAnalysisApi.submitAnalysis"
+        action: "receive"
+        dependsOn:
+          - "submitAnalysisSend"
+        outputs:
+          orderId: "$message.payload#/orderId"
+
+      - stepId: "allocateResources"
+        dependsOn:
+          - "submitAnalysisReceive"
+        operationId: "$sourceDescriptions.ResourceApi.allocateResources"
+        parameters:
+          - name: "orderId"
+            in: "query"
+            value: "$steps.submitAnalysisReceive.outputs.orderId"
+        successCriteria:
+          - condition: "$statusCode == 200"
+
+      - stepId: "reportGenerated"
+        operationId: "$sourceDescriptions.AsyncAnalysisApi.reportGenerated"
+        action: "receive"
+        dependsOn:
+          - "allocateResources"
+        outputs:
+          insightId: "$message.payload#/insightId"
+
+      - stepId: "processingCompleted"
+        operationId: "$sourceDescriptions.AsyncAnalysisApi.processingCompleted"
+        action: "send"
+        dependsOn:
+          - "reportGenerated"
+
+      - stepId: "getInsightDetails"
+        operationId: "$sourceDescriptions.InsightApi.getInsightDetails"
+        parameters:
+          - name: "insightId"
+            in: "path"
+            value: "$steps.reportGenerated.outputs.insightId"
+        successCriteria:
+          - condition: "$statusCode == 200"
+        outputs:
+          orderId: "$response.body#/orderId"
+          status: "$response.body#/status"

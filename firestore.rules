@@ -1,0 +1,107 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Global Default Deny Rule
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 3. Primitive Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(teacherId) {
+      return isSignedIn() && request.auth.uid == teacherId;
+    }
+
+    // ID validation constraint
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Entity validation functions (Anti-Update-Gap / Prevention of value poisoning)
+    function isValidScan(data) {
+      return data.keys().hasAll(['id', 'teacherId', 'fileName', 'uploadedAt', 'status', 'studentCount']) &&
+             data.keys().size() == 6 &&
+             isValidId(data.id) &&
+             data.teacherId is string && data.teacherId.size() <= 128 &&
+             data.fileName is string && data.fileName.size() <= 256 &&
+             data.status in ['pending', 'running', 'completed', 'failed'] &&
+             data.studentCount is int && data.studentCount >= 0;
+    }
+
+    function isValidStudent(data) {
+      return data.keys().hasAll(['id', 'scanId', 'teacherId', 'studentName', 'githubUrl', 'suspicionScore', 'commitQuality', 'similarityPercentage', 'status', 'analyzedAt', 'engineUsed', 'rollNo', 'days']) &&
+             data.keys().size() == 13 &&
+             isValidId(data.id) &&
+             isValidId(data.scanId) &&
+             data.teacherId is string && data.teacherId.size() <= 128 &&
+             data.studentName is string && data.studentName.size() <= 128 &&
+             data.githubUrl is string && data.githubUrl.size() <= 512 &&
+             data.suspicionScore is int && data.suspicionScore >= 0 && data.suspicionScore <= 100 &&
+             data.commitQuality in ['Excellent', 'Good', 'Suspicious', 'Critical'] &&
+             data.similarityPercentage is int && data.similarityPercentage >= 0 && data.similarityPercentage <= 100 &&
+             data.status in ['completed', 'analyzing', 'failed'] &&
+             data.engineUsed is string && data.engineUsed.size() <= 64 &&
+             data.rollNo is string && data.rollNo.size() <= 64 &&
+             data.days is list && data.days.size() <= 40;
+    }
+
+    // Complete Student Report structure validation
+    function isValidStudentReport(data) {
+      return data.keys().hasAll(['studentId', 'scanId', 'teacherId', 'studentName', 'githubUrl', 'suspicionScore', 'reasoning', 'vivaQuestions', 'files', 'commits', 'similarityReasons', 'engineUsed', 'rollNo', 'days']) &&
+             data.keys().size() == 14 &&
+             data.studentId is string && data.studentId.size() <= 128 &&
+             isValidId(data.scanId) &&
+             data.teacherId is string && data.teacherId.size() <= 128 &&
+             data.studentName is string && data.studentName.size() <= 128 &&
+             data.githubUrl is string && data.githubUrl.size() <= 512 &&
+             data.suspicionScore is int && data.suspicionScore >= 0 && data.suspicionScore <= 100 &&
+             data.reasoning is list && data.reasoning.size() <= 40 &&
+             data.vivaQuestions is list && data.vivaQuestions.size() <= 40 &&
+             data.files is list && data.files.size() <= 200 &&
+             data.commits is list && data.commits.size() <= 50 &&
+             data.similarityReasons is string && data.similarityReasons.size() <= 1024 &&
+             data.engineUsed is string && data.engineUsed.size() <= 64 &&
+             data.rollNo is string && data.rollNo.size() <= 64 &&
+             data.days is list && data.days.size() <= 40;
+    }
+
+    // scans collection rules
+    match /scans/{scanId} {
+      allow get: if isSignedIn() && isOwner(existing().teacherId);
+      allow list: if isSignedIn() && resource.data.teacherId == request.auth.uid;
+      allow create: if (request.auth == null) && isValidId(scanId) && isValidScan(incoming());
+      allow update: if (request.auth == null) && isValidId(scanId) && isValidScan(incoming());
+      allow delete: if isSignedIn() && isOwner(existing().teacherId);
+    }
+
+    // students collection rules
+    match /students/{studentId} {
+      allow get: if isSignedIn() && isOwner(existing().teacherId);
+      allow list: if isSignedIn() && resource.data.teacherId == request.auth.uid;
+      allow create: if (request.auth == null) && isValidId(studentId) && isValidStudent(incoming());
+      allow update: if (request.auth == null) && isValidId(studentId) && isValidStudent(incoming());
+      allow delete: if isSignedIn() && isOwner(existing().teacherId);
+    }
+
+    // student_reports collection rules
+    match /student_reports/{studentId} {
+      allow get: if isSignedIn() && isOwner(existing().teacherId);
+      allow list: if isSignedIn() && resource.data.teacherId == request.auth.uid;
+      allow create: if (request.auth == null) && isValidId(studentId) && isValidStudentReport(incoming());
+      allow update: if (request.auth == null) && isValidId(studentId) && isValidStudentReport(incoming());
+      allow delete: if isSignedIn() && isOwner(existing().teacherId);
+    }
+  }
+}

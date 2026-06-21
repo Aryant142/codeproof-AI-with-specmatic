@@ -1,0 +1,21 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/delete-scan",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "scanId": null
+    }
+  },
+  "http-response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "error": "Missing or invalid scanId payload parameter"
+    }
+  }
+}

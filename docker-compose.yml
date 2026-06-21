@@ -1,0 +1,12 @@
+services:
+  studio:
+    image: specmatic/specmatic:latest
+    entrypoint: ""
+    command: ["specmatic","studio"]
+    profiles:
+      - studio
+    ports:
+      - "8080:9000"
+    volumes:
+      - .:/specmatic
+    working_dir: /specmatic

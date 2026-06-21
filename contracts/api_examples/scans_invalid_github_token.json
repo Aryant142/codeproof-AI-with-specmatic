@@ -1,0 +1,29 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/scans",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fileName": "CS101_Roster.pdf",
+      "teacherId": "teacher_123",
+      "githubToken": 999,
+      "students": [
+        {
+          "studentName": "John Doe",
+          "githubUrl": "https://github.com/johndoe/assignment-1"
+        }
+      ]
+    }
+  },
+  "http-response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "error": "Invalid githubToken format"
+    }
+  }
+}

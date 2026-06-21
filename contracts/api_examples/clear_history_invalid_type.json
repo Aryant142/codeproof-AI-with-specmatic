@@ -1,0 +1,21 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/clear-history",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "teacherId": 123
+    }
+  },
+  "http-response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "error": "Missing or invalid teacherId payload parameter"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+sources:
+  - provider: filesystem
+    # Only test the implemented CodeProof API.
+    # The other specs (user, insight, resource, asyncapi) describe separate microservices
+    # that are not yet running — including them in test: caused 4 failures + 7 skips
+    # and reduced coverage to 54%. They remain in stub: for local mock usage.
+    test:
+      - contracts/api.yaml
+    stub:
+      - contracts/api.yaml
+      - specs/openapi/user.yaml
+      - specs/openapi/insight.yaml
+      - specs/openapi/resource.yaml
+      - specs/asyncapi/analysis.yaml
+
+report:
+  formatters:
+    - type: html
+    - type: ctrf
+
