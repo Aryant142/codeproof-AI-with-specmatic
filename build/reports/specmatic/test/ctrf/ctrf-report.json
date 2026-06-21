@@ -1,1 +1,1390 @@
-{"results":{"tool":{"name":"Specmatic v2.37.2"},"summary":{"tests":29,"passed":28,"failed":1,"skipped":0,"pending":0,"other":0,"start":1782042943665,"stop":1782042953681,"suites":1,"extra":{"executionDetails":[{"protocol":"http","specType":"openapi","specification":"/usr/src/app/contracts/api.yaml","branch":"main","operations":[{"path":"/api/health","method":"GET","responseCode":200,"coverageStatus":"covered","testIds":["35004cac-d105-4373-b633-00781da2d5ee"]},{"path":"/api/parse-pdf","method":"POST","contentType":"application/pdf","responseCode":200,"coverageStatus":"covered","testIds":["9c97f094-bdb5-4afc-8a01-258ae1eb7038"]},{"path":"/api/clear-history","method":"POST","contentType":"application/json","responseCode":200,"coverageStatus":"covered","testIds":["af415dca-13f3-4232-879e-a9b0df5ee3dc"]},{"path":"/api/clear-history","method":"POST","contentType":"application/json","responseCode":400,"coverageStatus":"covered","testIds":["39542dab-edcd-4497-8119-2d47236c0dd9","150ebf13-fab4-4108-b06c-8392f25cc531","f5e144a6-44a5-470a-8336-66e195fb9d24"]},{"path":"/api/delete-student","method":"POST","contentType":"application/json","responseCode":200,"coverageStatus":"covered","testIds":["1a1fadff-2712-4b17-9ad9-3cd2a39b40dd"]},{"path":"/api/delete-student","method":"POST","contentType":"application/json","responseCode":400,"coverageStatus":"covered","testIds":["8d2ead5b-9ddb-4d0f-b360-9c320826ebfb","8df76f88-8788-4a44-a2a7-74da6c15745d","e9c99d70-9499-496f-8c5f-565e0ff17315"]},{"path":"/api/delete-scan","method":"POST","contentType":"application/json","responseCode":200,"coverageStatus":"covered","testIds":["d0378053-712b-48e0-bf71-5f9d4a559203"]},{"path":"/api/delete-scan","method":"POST","contentType":"application/json","responseCode":400,"coverageStatus":"covered","testIds":["b39c61b8-8579-4847-9b1c-f637be570f2b","c3286b52-7d37-4e0a-a07f-cea099e4f6f7","742ec548-630c-48cf-aa1f-eeb38269cb26"]},{"path":"/api/scans","method":"POST","contentType":"application/json","responseCode":200,"coverageStatus":"covered","testIds":["91b24402-00dd-4841-8f07-8053ebfbcf1f"]},{"path":"/api/scans","method":"POST","contentType":"application/json","responseCode":400,"coverageStatus":"covered","testIds":["a1b6e8c5-0398-4b05-94e6-4a94b0dc933f","29c56ec9-979e-4fc5-8177-f99a404e4d7f","f7f41f35-cf33-401a-a9ab-c998dc25f7aa","9eeb5c04-3dfa-40a1-bf04-98e4a7909fce","a842f676-d26f-42fb-9d00-66d05da79472","17a7693a-ed7c-4d3b-8cdc-49eba264d642","4ab62b75-5947-42cb-85e3-fa1f3684fc26","51a15eac-e02e-430b-a9ec-d9fc39181b7b"]},{"path":"/api/reports/{studentId}","method":"GET","responseCode":200,"coverageStatus":"covered","testIds":["3ccb5c19-2b75-464a-b3a6-0a3b03c88c8e"]},{"path":"/api/re-analyze","method":"POST","contentType":"application/json","responseCode":200,"coverageStatus":"covered","testIds":["7f16c128-bbcc-4238-a43c-eb00d534599c"]},{"path":"/api/re-analyze","method":"POST","contentType":"application/json","responseCode":400,"coverageStatus":"covered","testIds":["e41a818f-69f5-4bc4-95d2-285d7ec67036","88b00e6a-a081-42f2-8f63-933abec1b0c9","72019718-123b-4745-a38a-f8cab07e4d77","62a606e3-28d8-4ddb-8dff-e8878865e0e8"]}]}]}},"tests":[{"id":"35004cac-d105-4373-b633-00781da2d5ee","name":" Scenario: GET /api/health -> 200 with the request from the example 'health_success'","status":"passed","duration":115,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["method:get","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"GET /api/health\nSpecmatic-Response-Code: 200\n\n","output":"200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 144\nETag: W/\"90-fCwirkPhIxcmj98RZJ66G2czsdA\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"status\": \"ok\",\n    \"apiInitialized\": true,\n    \"isGeminiQuotaExceeded\": false,\n    \"isGroqQuotaExceeded\": false,\n    \"hasGroq\": true,\n    \"activeEngine\": \"Groq (Llama 3.3)\"\n}","inputTime":1782042944066,"outputTime":1782042944181}},{"id":"9c97f094-bdb5-4afc-8a01-258ae1eb7038","name":" Scenario: POST /api/parse-pdf -> 200 with the request from the example 'parse_pdf_success'","status":"passed","duration":200,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/pdf","method:post","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/parse-pdf\nContent-Type: application/pdf\nSpecmatic-Response-Code: 200\n\nJVBERi0xLjQKMSAwIG9iago8PAovVGl0bGUgKFRlc3QgUk9TVEVSKQovQXV0aG9yIChUZXN0KQo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMyAwIFIKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9LaWRzIFs0IDAgUl0KL0NvdW50IDEKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL1R5cGUgL1BhZ2UKL1BhcmVudCAzIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUgODQyXQovQ29udGVudHMgNSAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0xlbmd0aCAxNTAKPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgoxMDAgNzAwIFRkCihDbGFzc3Jvb20gU3R1ZGVudCBSb3N0ZXIgU3VibWlzc2lvbikgVGoKMTAwIDY4MCBUZgooSm9obiBEb2UgaHR0cHM6Ly9naXRodWIuY29tL2pvaG5kb2UvYXNzaWduaW1lbnQtMSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iago2IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovQmFzZUZvbnQgL0hlbHZldGljYQo+PgplbmRvYmoKeHJlZgowIDcKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNjIgMDAwMDAgbiAKMDAwMDAwMDExMSAwMDAwMCBuIAowMDAwMDAwMTcwIDAwMDAwIG4gCjAwMDAwMDAyNjIgMDAwMDAgbiAKMDAwMDAwMDQ2NCAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9TaXplIDcKL1Jvb3QgMiAwIFIKPj4Kc3RhcnR4cmVmCjU0NQolJUVPRgo=","output":"200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 106\nETag: W/\"6a-M9WVG5gqvsbg2tKj0YmumZpTbn8\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"students\": [\n        {\n            \"studentName\": \"Mock Student\",\n            \"githubUrl\": \"https://github.com/mock/repo\",\n            \"isValidUrl\": true\n        }\n    ]\n}","inputTime":1782042944216,"outputTime":1782042944416}},{"id":"af415dca-13f3-4232-879e-a9b0df5ee3dc","name":" Scenario: POST /api/clear-history -> 200 with the request from the example 'clear_history_success'","status":"passed","duration":65,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"teacherId\": \"teacher_123\"\n}","output":"200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 129\nETag: W/\"81-ts7RDy5J2DYJ+FUeMxs+bvklExQ\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"success\": true,\n    \"message\": \"Successfully cleared memory buffers for teacher teacher_123. Database cleanup handled on the client.\"\n}","inputTime":1782042944430,"outputTime":1782042944495}},{"id":"39542dab-edcd-4497-8119-2d47236c0dd9","name":" Scenario: POST /api/clear-history -> 400 with the request from the example 'clear_history_failure'","status":"passed","duration":19,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-XUlSOo/htcjPhsk3f0Oz+fAtKOI\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid teacherId payload parameter\"\n}","inputTime":1782042944503,"outputTime":1782042944523}},{"id":"150ebf13-fab4-4108-b06c-8392f25cc531","name":" Scenario: POST /api/clear-history -> 400 with the request from the example 'clear_history_invalid_type'","status":"passed","duration":17,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"teacherId\": 123\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-XUlSOo/htcjPhsk3f0Oz+fAtKOI\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid teacherId payload parameter\"\n}","inputTime":1782042944527,"outputTime":1782042944545}},{"id":"f5e144a6-44a5-470a-8336-66e195fb9d24","name":" Scenario: POST /api/clear-history -> 400 with the request from the example 'clear_history_null_teacher'","status":"passed","duration":18,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"teacherId\": null\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-XUlSOo/htcjPhsk3f0Oz+fAtKOI\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid teacherId payload parameter\"\n}","inputTime":1782042944550,"outputTime":1782042944568}},{"id":"1a1fadff-2712-4b17-9ad9-3cd2a39b40dd","name":" Scenario: POST /api/delete-student -> 200 with the request from the example 'delete_student_success'","status":"passed","duration":20,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"studentId\": \"student_1718600000000_0\"\n}","output":"200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 102\nETag: W/\"66-UjBGrCbHJPnvuGFJpm6oRA7FrRc\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"success\": true,\n    \"message\": \"Successfully deleted student student_1718600000000_0 from memory buffers.\"\n}","inputTime":1782042944573,"outputTime":1782042944593}},{"id":"8d2ead5b-9ddb-4d0f-b360-9c320826ebfb","name":" Scenario: POST /api/delete-student -> 400 with the request from the example 'delete_student_failure'","status":"passed","duration":19,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-9dcgamwXzINf8DisTWv3kB+svTc\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid studentId payload parameter\"\n}","inputTime":1782042944598,"outputTime":1782042944618}},{"id":"8df76f88-8788-4a44-a2a7-74da6c15745d","name":" Scenario: POST /api/delete-student -> 400 with the request from the example 'delete_student_invalid_type'","status":"passed","duration":16,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": 42\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-9dcgamwXzINf8DisTWv3kB+svTc\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid studentId payload parameter\"\n}","inputTime":1782042944622,"outputTime":1782042944638}},{"id":"e9c99d70-9499-496f-8c5f-565e0ff17315","name":" Scenario: POST /api/delete-student -> 400 with the request from the example 'delete_student_null'","status":"passed","duration":19,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": null\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-9dcgamwXzINf8DisTWv3kB+svTc\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid studentId payload parameter\"\n}","inputTime":1782042944643,"outputTime":1782042944662}},{"id":"d0378053-712b-48e0-bf71-5f9d4a559203","name":" Scenario: POST /api/delete-scan -> 200 with the request from the example 'delete_scan_success'","status":"passed","duration":27,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"scanId\": \"scan_1718600000000\"\n}","output":"200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 94\nETag: W/\"5e-RZLh5IAMWEg8DC0P2xULD7c34gY\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"success\": true,\n    \"message\": \"Successfully deleted scan scan_1718600000000 from memory buffers.\"\n}","inputTime":1782042944668,"outputTime":1782042944696}},{"id":"b39c61b8-8579-4847-9b1c-f637be570f2b","name":" Scenario: POST /api/delete-scan -> 400 with the request from the example 'delete_scan_failure'","status":"passed","duration":21,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 55\nETag: W/\"37-eZew45ztaSKudccMGZD5uGVd7pI\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid scanId payload parameter\"\n}","inputTime":1782042944703,"outputTime":1782042944724}},{"id":"c3286b52-7d37-4e0a-a07f-cea099e4f6f7","name":" Scenario: POST /api/delete-scan -> 400 with the request from the example 'delete_scan_invalid_type'","status":"passed","duration":21,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"scanId\": 999\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 55\nETag: W/\"37-eZew45ztaSKudccMGZD5uGVd7pI\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid scanId payload parameter\"\n}","inputTime":1782042944728,"outputTime":1782042944749}},{"id":"742ec548-630c-48cf-aa1f-eeb38269cb26","name":" Scenario: POST /api/delete-scan -> 400 with the request from the example 'delete_scan_null'","status":"passed","duration":19,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"scanId\": null\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 55\nETag: W/\"37-eZew45ztaSKudccMGZD5uGVd7pI\"\nDate: Sun, 21 Jun 2026 11:55:44 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid scanId payload parameter\"\n}","inputTime":1782042944754,"outputTime":1782042944773}},{"id":"91b24402-00dd-4841-8f07-8053ebfbcf1f","name":" Scenario: POST /api/scans -> 200 with the request from the example 'scans_success'","status":"failed","duration":6018,"suite":"/usr/src/app/contracts/api.yaml","message":"Expected status 200, but got 0","rawStatus":"Failed","tags":["content-type:application/json","method:post","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"","output":"","inputTime":1782042944780,"outputTime":1782042950798}},{"id":"a1b6e8c5-0398-4b05-94e6-4a94b0dc933f","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_failure'","status":"passed","duration":34,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"\",\n    \"teacherId\": \"\"\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 11:55:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}","inputTime":1782042950813,"outputTime":1782042950847}},{"id":"29c56ec9-979e-4fc5-8177-f99a404e4d7f","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_github_token'","status":"passed","duration":27,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"githubToken\": 999,\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\",\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\"\n        }\n    ]\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 38\nETag: W/\"26-QERzVdGJF9PhnX/uKUh9ZCxOqgE\"\nDate: Sun, 21 Jun 2026 11:55:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid githubToken format\"\n}","inputTime":1782042950857,"outputTime":1782042950885}},{"id":"f7f41f35-cf33-401a-a9ab-c998dc25f7aa","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_github_url'","status":"passed","duration":21,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\"\n        }\n    ]\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 93\nETag: W/\"5d-DzlH0kP+EBJujpL+bVruxVSEReo\"\nDate: Sun, 21 Jun 2026 11:55:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid student object structure. studentName and githubUrl are required strings.\"\n}","inputTime":1782042950892,"outputTime":1782042950913}},{"id":"9eeb5c04-3dfa-40a1-bf04-98e4a7909fce","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_roll_no_type'","status":"passed","duration":18,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\",\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\",\n            \"rollNo\": 42\n        }\n    ]\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 33\nETag: W/\"21-US8EQP45hOBqe6x0aPu5gOGa6bg\"\nDate: Sun, 21 Jun 2026 11:55:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid rollNo format\"\n}","inputTime":1782042950918,"outputTime":1782042950937}},{"id":"a842f676-d26f-42fb-9d00-66d05da79472","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_student_object'","status":"passed","duration":15,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": [\n        {\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\"\n        }\n    ]\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 93\nETag: W/\"5d-DzlH0kP+EBJujpL+bVruxVSEReo\"\nDate: Sun, 21 Jun 2026 11:55:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid student object structure. studentName and githubUrl are required strings.\"\n}","inputTime":1782042950941,"outputTime":1782042950956}},{"id":"17a7693a-ed7c-4d3b-8cdc-49eba264d642","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_missing_students'","status":"passed","duration":21,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\"\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 11:55:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}","inputTime":1782042950960,"outputTime":1782042950981}},{"id":"4ab62b75-5947-42cb-85e3-fa1f3684fc26","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_missing_teacherId'","status":"passed","duration":25,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\",\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\"\n        }\n    ]\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}","inputTime":1782042950986,"outputTime":1782042951012}},{"id":"51a15eac-e02e-430b-a9ec-d9fc39181b7b","name":" Scenario: POST /api/scans -> 400 with the request from the example 'scans_students_not_array'","status":"passed","duration":19,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": \"not-an-array\"\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}","inputTime":1782042951018,"outputTime":1782042951038}},{"id":"3ccb5c19-2b75-464a-b3a6-0a3b03c88c8e","name":" Scenario: GET /api/reports/(studentId:string) -> 200 with the request from the example 'get_report_success'","status":"passed","duration":22,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["method:get","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"GET /api/reports/student_1718600000000_0\nSpecmatic-Response-Code: 200\n\n","output":"200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 1125\nETag: W/\"465-vSxIx6gO3SQdRm/KG/v62HWMoOk\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"studentId\": \"student_1718600000000_0\",\n    \"scanId\": \"scan_fallback\",\n    \"teacherId\": \"teacher_fallback\",\n    \"studentName\": \"Mock Student\",\n    \"githubUrl\": \"https://github.com/mock/repo\",\n    \"rollNo\": \"MOCK-01\",\n    \"suspicionScore\": 15,\n    \"reasoning\": [\n        \"Failsafe processing active, style deviates slightly from common student limits.\"\n    ],\n    \"vivaQuestions\": [\n        {\n            \"question\": \"Can you explain the main algorithmic performance of this specific block?\",\n            \"expectedConcept\": \"Time and space scalability\",\n            \"suggestedAnswer\": \"It has a linear complexity with respect to the input dimensions.\"\n        }\n    ],\n    \"files\": [\n        {\n            \"filePath\": \"solution.py\",\n            \"fileName\": \"solution.py\",\n            \"language\": \"PYTHON\",\n            \"codeSample\": \"def hello(): pass\",\n            \"suspicionScore\": 15,\n            \"reasoning\": [\n                \"Failsafe offline assessment applied.\"\n            ],\n            \"aiExplanation\": \"Statically analyzed style format properties.\",\n            \"summary\": \"Analyzed code syntax structure.\",\n            \"vivaQuestions\": []\n        }\n    ],\n    \"commits\": [\n        {\n            \"sha\": \"71cb3db\",\n            \"message\": \"Initial commit\",\n            \"author\": \"Mock Student\",\n            \"date\": \"2026-06-21T11:55:51.058Z\",\n            \"isSuspicious\": false\n        }\n    ],\n    \"similarityReasons\": \"No repetitive copy patterns or global plagiarisms matched.\",\n    \"engineUsed\": \"Offline Static Engine\",\n    \"days\": [\n        \"Day 1\"\n    ]\n}","inputTime":1782042951045,"outputTime":1782042951067}},{"id":"7f16c128-bbcc-4238-a43c-eb00d534599c","name":" Scenario: POST /api/re-analyze -> 200 with the request from the example 're_analyze_success'","status":"passed","duration":266,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:200"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"studentId\": \"student_1718600000000_0\",\n    \"fileIndex\": 0,\n    \"customPrompt\": \"Verify comments follow standard classroom docstring guidelines\"\n}","output":"200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 324\nETag: W/\"144-6dZm5tqdcw+iZVsxwvqUlYmaK34\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"aiExplanation\": \"Safe fallback active (Gemini rate-limited or key exhausted). Custom requirements successfully review criteria: \\\"Verify comments follow standard classroom docstring guidelines\\\". Evaluation indicates typical computer-generated structure parity with high visual consistency.\",\n    \"scores\": {\n        \"suspicionScore\": 10\n    }\n}","inputTime":1782042951077,"outputTime":1782042951343}},{"id":"e41a818f-69f5-4bc4-95d2-285d7ec67036","name":" Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_failure'","status":"passed","duration":18,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": \"\",\n    \"fileIndex\": 0\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}","inputTime":1782042951355,"outputTime":1782042951374}},{"id":"88b00e6a-a081-42f2-8f63-933abec1b0c9","name":" Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_invalid_file_index_type'","status":"passed","duration":22,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": \"student_1718600000000_0\",\n    \"fileIndex\": \"zero\"\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}","inputTime":1782042951378,"outputTime":1782042951400}},{"id":"72019718-123b-4745-a38a-f8cab07e4d77","name":" Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_missing_file_index'","status":"passed","duration":24,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": \"student_1718600000000_0\"\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}","inputTime":1782042951403,"outputTime":1782042951427}},{"id":"62a606e3-28d8-4ddb-8dff-e8878865e0e8","name":" Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_missing_student_id'","status":"passed","duration":16,"suite":"/usr/src/app/contracts/api.yaml","message":"","rawStatus":"Success","tags":["content-type:application/json","method:post","status:400"],"type":"ContractTest","extra":{"valid":true,"wip":false,"input":"POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileIndex\": 0\n}","output":"400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 11:55:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}","inputTime":1782042951430,"outputTime":1782042951447}}],"environment":{},"extra":{"apiCoverage":"100%","specmaticConfigPath":"./specmatic.yaml"}},"reportFormat":"CTRF","specVersion":"1.0.0","reportId":"585aa4e7-01cc-40c7-a489-4b0b9ee59c5a","timestamp":"2026-06-21T11:55:43.665Z","generatedBy":"Specmatic v2.37.2"}
+{
+    "results": {
+        "tool": {
+            "name": "Specmatic v2.46.3"
+        },
+        "summary": {
+            "tests": 29,
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1782047090677,
+            "stop": 1782047098838,
+            "suites": 1,
+            "extra": {
+                "executionDetails": [
+                    {
+                        "protocol": "http",
+                        "specType": "openapi",
+                        "specification": "contracts/api.yaml",
+                        "type": "filesystem",
+                        "branch": "main",
+                        "operations": [
+                            {
+                                "path": "/api/health",
+                                "method": "GET",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "7d0b18de-9d64-4cff-a88d-6933fcf683aa"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/parse-pdf",
+                                "method": "POST",
+                                "contentType": "application/pdf",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "ef03bea0-97dd-4ac1-9626-0ddaa0c50eec"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/clear-history",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "467c78e4-31cb-49df-b4e8-24cd11887dfc"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/clear-history",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 400,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "7d5990dc-365e-400c-a154-c2a46de496fe",
+                                    "c433e382-d307-45e5-829f-0977605065bd",
+                                    "7c45b5bf-4d19-444c-bd94-b9bdf8553fa4"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 3,
+                                    "matches": 3
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/delete-student",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "c55508dc-f6e7-4a73-a62b-49b4f9cc4048"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/delete-student",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 400,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "97cff007-0239-4d0a-a230-a1d54d32c5e1",
+                                    "25211ac3-16c9-4c6f-b230-e89eaaa0fdf1",
+                                    "5b8382f0-ddd4-4265-99ac-9cabed5dd63d"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 3,
+                                    "matches": 3
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/delete-scan",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "8267555b-5154-4169-a07e-e4f7b7558fa6"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/delete-scan",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 400,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "033cc8f6-130f-49a7-a45d-e73a06029f91",
+                                    "e6328b99-fe8c-45be-bb6e-a41a51629839",
+                                    "1ab0ec0a-0849-47d5-abed-489a44db3933"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 3,
+                                    "matches": 3
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/scans",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "c00de947-4bc5-4b4f-b8b2-fa0336abbba7"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/scans",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 400,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "6103453f-6e90-4d36-ac19-7865b25a197c",
+                                    "8aeb78d4-7b03-498d-8091-f92e887d3187",
+                                    "68fca152-0ea1-479c-a7ac-348d65f6b0a7",
+                                    "afe998a6-3bda-4680-99b3-e7655de5241f",
+                                    "72cc9272-825f-4d0d-b482-5b293b3226af",
+                                    "d11cf5af-7829-426c-bda5-0a6cb346554d",
+                                    "a83f3770-6b31-416a-8152-d4b3b2b83c87",
+                                    "98b48a40-8992-4515-882f-6d47087ba950"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 8,
+                                    "matches": 8
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/reports/{studentId}",
+                                "method": "GET",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "d0b6cbff-d596-46b4-af0d-046ecc247b44"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/re-analyze",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 200,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "a501972d-f9ac-4351-bf42-84ecafafc40c"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 1,
+                                    "matches": 1
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            },
+                            {
+                                "path": "/api/re-analyze",
+                                "method": "POST",
+                                "contentType": "application/json",
+                                "responseCode": 400,
+                                "coverageStatus": "covered",
+                                "eligibleForCoverage": true,
+                                "omittedStatus": "NONE",
+                                "testIds": [
+                                    "04bc7d05-1cfa-4309-8647-f05922086b93",
+                                    "33d89b39-f60e-433e-854d-2c171f02ef30",
+                                    "8025741c-c57a-4ede-8bc7-804c6ea9a24e",
+                                    "670aad7f-cac9-4cf4-98b5-05bd32004a57"
+                                ],
+                                "responseContentType": "application/json",
+                                "metrics": {
+                                    "attempts": 4,
+                                    "matches": 4
+                                },
+                                "reasons": [],
+                                "qualifiers": [],
+                                "status": "covered"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "tests": [
+            {
+                "id": "7d0b18de-9d64-4cff-a88d-6933fcf683aa",
+                "name": "Scenario: GET /api/health -> 200 with the request from the example 'health_success'",
+                "status": "passed",
+                "duration": 74,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "method:get",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "GET /api/health\nSpecmatic-Response-Code: 200\n\n",
+                    "inputTime": 1782047090853,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 144\nETag: W/\"90-fCwirkPhIxcmj98RZJ66G2czsdA\"\nDate: Sun, 21 Jun 2026 13:04:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"status\": \"ok\",\n    \"apiInitialized\": true,\n    \"isGeminiQuotaExceeded\": false,\n    \"isGroqQuotaExceeded\": false,\n    \"hasGroq\": true,\n    \"activeEngine\": \"Groq (Llama 3.3)\"\n}",
+                            "time": 1782047090928
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "ef03bea0-97dd-4ac1-9626-0ddaa0c50eec",
+                "name": "Scenario: POST /api/parse-pdf -> 200 with the request from the example 'parse_pdf_success'",
+                "status": "passed",
+                "duration": 17,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/pdf",
+                    "method:post",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/parse-pdf\nContent-Type: application/pdf\nSpecmatic-Response-Code: 200\n\nJVBERi0xLjQKMSAwIG9iago8PAovVGl0bGUgKFRlc3QgUk9TVEVSKQovQXV0aG9yIChUZXN0KQo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMyAwIFIKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9LaWRzIFs0IDAgUl0KL0NvdW50IDEKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL1R5cGUgL1BhZ2UKL1BhcmVudCAzIDAgUgovTWVkaWFCb3ggWzAgMCA1OTUgODQyXQovQ29udGVudHMgNSAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0xlbmd0aCAxNTAKPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgoxMDAgNzAwIFRkCihDbGFzc3Jvb20gU3R1ZGVudCBSb3N0ZXIgU3VibWlzc2lvbikgVGoKMTAwIDY4MCBUZgooSm9obiBEb2UgaHR0cHM6Ly9naXRodWIuY29tL2pvaG5kb2UvYXNzaWduaW1lbnQtMSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iago2IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovQmFzZUZvbnQgL0hlbHZldGljYQo+PgplbmRvYmoKeHJlZgowIDcKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNjIgMDAwMDAgbiAKMDAwMDAwMDExMSAwMDAwMCBuIAowMDAwMDAwMTcwIDAwMDAwIG4gCjAwMDAwMDAyNjIgMDAwMDAgbiAKMDAwMDAwMDQ2NCAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9TaXplIDcKL1Jvb3QgMiAwIFIKPj4Kc3RhcnR4cmVmCjU0NQolJUVPRgo=",
+                    "inputTime": 1782047090941,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 106\nETag: W/\"6a-M9WVG5gqvsbg2tKj0YmumZpTbn8\"\nDate: Sun, 21 Jun 2026 13:04:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"students\": [\n        {\n            \"studentName\": \"Mock Student\",\n            \"githubUrl\": \"https://github.com/mock/repo\",\n            \"isValidUrl\": true\n        }\n    ]\n}",
+                            "time": 1782047090958
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "467c78e4-31cb-49df-b4e8-24cd11887dfc",
+                "name": "Scenario: POST /api/clear-history -> 200 with the request from the example 'clear_history_success'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"teacherId\": \"teacher_123\"\n}",
+                    "inputTime": 1782047090961,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 129\nETag: W/\"81-ts7RDy5J2DYJ+FUeMxs+bvklExQ\"\nDate: Sun, 21 Jun 2026 13:04:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"success\": true,\n    \"message\": \"Successfully cleared memory buffers for teacher teacher_123. Database cleanup handled on the client.\"\n}",
+                            "time": 1782047090975
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "7d5990dc-365e-400c-a154-c2a46de496fe",
+                "name": "Scenario: POST /api/clear-history -> 400 with the request from the example 'clear_history_failure'",
+                "status": "passed",
+                "duration": 13,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{}",
+                    "inputTime": 1782047090980,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-XUlSOo/htcjPhsk3f0Oz+fAtKOI\"\nDate: Sun, 21 Jun 2026 13:04:50 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid teacherId payload parameter\"\n}",
+                            "time": 1782047090994
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "c433e382-d307-45e5-829f-0977605065bd",
+                "name": "Scenario: POST /api/clear-history -> 400 with the request from the example 'clear_history_invalid_type'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"teacherId\": 123\n}",
+                    "inputTime": 1782047090996,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-XUlSOo/htcjPhsk3f0Oz+fAtKOI\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid teacherId payload parameter\"\n}",
+                            "time": 1782047091010
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "7c45b5bf-4d19-444c-bd94-b9bdf8553fa4",
+                "name": "Scenario: POST /api/clear-history -> 400 with the request from the example 'clear_history_null_teacher'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/clear-history\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"teacherId\": null\n}",
+                    "inputTime": 1782047091013,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-XUlSOo/htcjPhsk3f0Oz+fAtKOI\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid teacherId payload parameter\"\n}",
+                            "time": 1782047091027
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "c55508dc-f6e7-4a73-a62b-49b4f9cc4048",
+                "name": "Scenario: POST /api/delete-student -> 200 with the request from the example 'delete_student_success'",
+                "status": "passed",
+                "duration": 13,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"studentId\": \"student_1718600000000_0\"\n}",
+                    "inputTime": 1782047091030,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 102\nETag: W/\"66-UjBGrCbHJPnvuGFJpm6oRA7FrRc\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"success\": true,\n    \"message\": \"Successfully deleted student student_1718600000000_0 from memory buffers.\"\n}",
+                            "time": 1782047091043
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "97cff007-0239-4d0a-a230-a1d54d32c5e1",
+                "name": "Scenario: POST /api/delete-student -> 400 with the request from the example 'delete_student_failure'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{}",
+                    "inputTime": 1782047091046,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-9dcgamwXzINf8DisTWv3kB+svTc\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid studentId payload parameter\"\n}",
+                            "time": 1782047091060
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "25211ac3-16c9-4c6f-b230-e89eaaa0fdf1",
+                "name": "Scenario: POST /api/delete-student -> 400 with the request from the example 'delete_student_invalid_type'",
+                "status": "passed",
+                "duration": 12,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": 42\n}",
+                    "inputTime": 1782047091063,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-9dcgamwXzINf8DisTWv3kB+svTc\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid studentId payload parameter\"\n}",
+                            "time": 1782047091075
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "5b8382f0-ddd4-4265-99ac-9cabed5dd63d",
+                "name": "Scenario: POST /api/delete-student -> 400 with the request from the example 'delete_student_null'",
+                "status": "passed",
+                "duration": 13,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-student\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": null\n}",
+                    "inputTime": 1782047091077,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 58\nETag: W/\"3a-9dcgamwXzINf8DisTWv3kB+svTc\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid studentId payload parameter\"\n}",
+                            "time": 1782047091091
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "8267555b-5154-4169-a07e-e4f7b7558fa6",
+                "name": "Scenario: POST /api/delete-scan -> 200 with the request from the example 'delete_scan_success'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"scanId\": \"scan_1718600000000\"\n}",
+                    "inputTime": 1782047091093,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 94\nETag: W/\"5e-RZLh5IAMWEg8DC0P2xULD7c34gY\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"success\": true,\n    \"message\": \"Successfully deleted scan scan_1718600000000 from memory buffers.\"\n}",
+                            "time": 1782047091108
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "033cc8f6-130f-49a7-a45d-e73a06029f91",
+                "name": "Scenario: POST /api/delete-scan -> 400 with the request from the example 'delete_scan_failure'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{}",
+                    "inputTime": 1782047091111,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 55\nETag: W/\"37-eZew45ztaSKudccMGZD5uGVd7pI\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid scanId payload parameter\"\n}",
+                            "time": 1782047091125
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "e6328b99-fe8c-45be-bb6e-a41a51629839",
+                "name": "Scenario: POST /api/delete-scan -> 400 with the request from the example 'delete_scan_invalid_type'",
+                "status": "passed",
+                "duration": 16,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"scanId\": 999\n}",
+                    "inputTime": 1782047091128,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 55\nETag: W/\"37-eZew45ztaSKudccMGZD5uGVd7pI\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid scanId payload parameter\"\n}",
+                            "time": 1782047091144
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "1ab0ec0a-0849-47d5-abed-489a44db3933",
+                "name": "Scenario: POST /api/delete-scan -> 400 with the request from the example 'delete_scan_null'",
+                "status": "passed",
+                "duration": 11,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/delete-scan\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"scanId\": null\n}",
+                    "inputTime": 1782047091147,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 55\nETag: W/\"37-eZew45ztaSKudccMGZD5uGVd7pI\"\nDate: Sun, 21 Jun 2026 13:04:51 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid scanId payload parameter\"\n}",
+                            "time": 1782047091159
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "c00de947-4bc5-4b4f-b8b2-fa0336abbba7",
+                "name": "Scenario: POST /api/scans -> 200 with the request from the example 'scans_success'",
+                "status": "passed",
+                "duration": 6088,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\",\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\"\n        }\n    ]\n}",
+                    "inputTime": 1782047091163,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-drAS0Ll1whgcjGh0U0Pwupab9jE\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"scanId\": \"scan_1782047091170\",\n    \"message\": \"Scan completed successfully.\"\n}",
+                            "time": 1782047097251
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "6103453f-6e90-4d36-ac19-7865b25a197c",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_failure'",
+                "status": "passed",
+                "duration": 15,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"\",\n    \"teacherId\": \"\"\n}",
+                    "inputTime": 1782047097254,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}",
+                            "time": 1782047097270
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "8aeb78d4-7b03-498d-8091-f92e887d3187",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_github_token'",
+                "status": "passed",
+                "duration": 16,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"githubToken\": 999,\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\",\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\"\n        }\n    ]\n}",
+                    "inputTime": 1782047097274,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 38\nETag: W/\"26-QERzVdGJF9PhnX/uKUh9ZCxOqgE\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid githubToken format\"\n}",
+                            "time": 1782047097290
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "68fca152-0ea1-479c-a7ac-348d65f6b0a7",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_github_url'",
+                "status": "passed",
+                "duration": 15,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\"\n        }\n    ]\n}",
+                    "inputTime": 1782047097293,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 93\nETag: W/\"5d-DzlH0kP+EBJujpL+bVruxVSEReo\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid student object structure. studentName and githubUrl are required strings.\"\n}",
+                            "time": 1782047097308
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "afe998a6-3bda-4680-99b3-e7655de5241f",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_roll_no_type'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\",\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\",\n            \"rollNo\": 42\n        }\n    ]\n}",
+                    "inputTime": 1782047097311,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 33\nETag: W/\"21-US8EQP45hOBqe6x0aPu5gOGa6bg\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid rollNo format\"\n}",
+                            "time": 1782047097325
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "72cc9272-825f-4d0d-b482-5b293b3226af",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_invalid_student_object'",
+                "status": "passed",
+                "duration": 15,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": [\n        {\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\"\n        }\n    ]\n}",
+                    "inputTime": 1782047097329,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 93\nETag: W/\"5d-DzlH0kP+EBJujpL+bVruxVSEReo\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Invalid student object structure. studentName and githubUrl are required strings.\"\n}",
+                            "time": 1782047097344
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "d11cf5af-7829-426c-bda5-0a6cb346554d",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_missing_students'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\"\n}",
+                    "inputTime": 1782047097347,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}",
+                            "time": 1782047097361
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "a83f3770-6b31-416a-8152-d4b3b2b83c87",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_missing_teacherId'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"students\": [\n        {\n            \"studentName\": \"John Doe\",\n            \"githubUrl\": \"https://github.com/johndoe/assignment-1\"\n        }\n    ]\n}",
+                    "inputTime": 1782047097364,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}",
+                            "time": 1782047097378
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "98b48a40-8992-4515-882f-6d47087ba950",
+                "name": "Scenario: POST /api/scans -> 400 with the request from the example 'scans_students_not_array'",
+                "status": "passed",
+                "duration": 16,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/scans\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileName\": \"CS101_Roster.pdf\",\n    \"teacherId\": \"teacher_123\",\n    \"students\": \"not-an-array\"\n}",
+                    "inputTime": 1782047097381,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 81\nETag: W/\"51-BfnyuiK9v1YavK3tQZtdhiD22Jg\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: fileName, students, teacherId\"\n}",
+                            "time": 1782047097397
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "d0b6cbff-d596-46b4-af0d-046ecc247b44",
+                "name": "Scenario: GET /api/reports/(studentId:string) -> 200 with the request from the example 'get_report_success'",
+                "status": "passed",
+                "duration": 15,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "method:get",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "GET /api/reports/student_1718600000000_0\nSpecmatic-Response-Code: 200\n\n",
+                    "inputTime": 1782047097401,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 1125\nETag: W/\"465-BS0hrh7UPtESwVgaW4lGqG/sKeU\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"studentId\": \"student_1718600000000_0\",\n    \"scanId\": \"scan_fallback\",\n    \"teacherId\": \"teacher_fallback\",\n    \"studentName\": \"Mock Student\",\n    \"githubUrl\": \"https://github.com/mock/repo\",\n    \"rollNo\": \"MOCK-01\",\n    \"suspicionScore\": 15,\n    \"reasoning\": [\n        \"Failsafe processing active, style deviates slightly from common student limits.\"\n    ],\n    \"vivaQuestions\": [\n        {\n            \"question\": \"Can you explain the main algorithmic performance of this specific block?\",\n            \"expectedConcept\": \"Time and space scalability\",\n            \"suggestedAnswer\": \"It has a linear complexity with respect to the input dimensions.\"\n        }\n    ],\n    \"files\": [\n        {\n            \"filePath\": \"solution.py\",\n            \"fileName\": \"solution.py\",\n            \"language\": \"PYTHON\",\n            \"codeSample\": \"def hello(): pass\",\n            \"suspicionScore\": 15,\n            \"reasoning\": [\n                \"Failsafe offline assessment applied.\"\n            ],\n            \"aiExplanation\": \"Statically analyzed style format properties.\",\n            \"summary\": \"Analyzed code syntax structure.\",\n            \"vivaQuestions\": []\n        }\n    ],\n    \"commits\": [\n        {\n            \"sha\": \"71cb3db\",\n            \"message\": \"Initial commit\",\n            \"author\": \"Mock Student\",\n            \"date\": \"2026-06-21T13:04:57.410Z\",\n            \"isSuspicious\": false\n        }\n    ],\n    \"similarityReasons\": \"No repetitive copy patterns or global plagiarisms matched.\",\n    \"engineUsed\": \"Offline Static Engine\",\n    \"days\": [\n        \"Day 1\"\n    ]\n}",
+                            "time": 1782047097417
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "a501972d-f9ac-4351-bf42-84ecafafc40c",
+                "name": "Scenario: POST /api/re-analyze -> 200 with the request from the example 're_analyze_success'",
+                "status": "passed",
+                "duration": 241,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:200"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 200\n\n{\n    \"studentId\": \"student_1718600000000_0\",\n    \"fileIndex\": 0,\n    \"customPrompt\": \"Verify comments follow standard classroom docstring guidelines\"\n}",
+                    "inputTime": 1782047097421,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "200 OK\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 324\nETag: W/\"144-6dZm5tqdcw+iZVsxwvqUlYmaK34\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"aiExplanation\": \"Safe fallback active (Gemini rate-limited or key exhausted). Custom requirements successfully review criteria: \\\"Verify comments follow standard classroom docstring guidelines\\\". Evaluation indicates typical computer-generated structure parity with high visual consistency.\",\n    \"scores\": {\n        \"suspicionScore\": 10\n    }\n}",
+                            "time": 1782047097663
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "04bc7d05-1cfa-4309-8647-f05922086b93",
+                "name": "Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_failure'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": \"\",\n    \"fileIndex\": 0\n}",
+                    "inputTime": 1782047097666,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}",
+                            "time": 1782047097680
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "33d89b39-f60e-433e-854d-2c171f02ef30",
+                "name": "Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_invalid_file_index_type'",
+                "status": "passed",
+                "duration": 15,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": \"student_1718600000000_0\",\n    \"fileIndex\": \"zero\"\n}",
+                    "inputTime": 1782047097683,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}",
+                            "time": 1782047097698
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "8025741c-c57a-4ede-8bc7-804c6ea9a24e",
+                "name": "Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_missing_file_index'",
+                "status": "passed",
+                "duration": 13,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"studentId\": \"student_1718600000000_0\"\n}",
+                    "inputTime": 1782047097701,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}",
+                            "time": 1782047097715
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            },
+            {
+                "id": "670aad7f-cac9-4cf4-98b5-05bd32004a57",
+                "name": "Scenario: POST /api/re-analyze -> 400 with the request from the example 're_analyze_missing_student_id'",
+                "status": "passed",
+                "duration": 14,
+                "suite": "contracts/api.yaml",
+                "message": "",
+                "rawStatus": "Success",
+                "tags": [
+                    "content-type:application/json",
+                    "method:post",
+                    "status:400"
+                ],
+                "type": "ContractTest",
+                "extra": {
+                    "valid": true,
+                    "wip": false,
+                    "input": "POST /api/re-analyze\nContent-Type: application/json\nSpecmatic-Response-Code: 400\n\n{\n    \"fileIndex\": 0\n}",
+                    "inputTime": 1782047097718,
+                    "outputs": [
+                        {
+                            "title": "Response",
+                            "content": "400 Bad Request\nX-Powered-By: Express\nContent-Type: application/json; charset=utf-8\nContent-Length: 72\nETag: W/\"48-jwFMbkNs5eW04ZapP+Je55CA9oA\"\nDate: Sun, 21 Jun 2026 13:04:57 GMT\nConnection: keep-alive\nKeep-Alive: timeout=5\n\n{\n    \"error\": \"Missing or invalid required parameters: studentId, fileIndex\"\n}",
+                            "time": 1782047097732
+                        }
+                    ],
+                    "reasons": [
+                        {
+                            "id": "T10001",
+                            "title": "Executed Using Example",
+                            "documentationUrl": "https://docs.specmatic.io/rules#t10001",
+                            "summary": "This operation was executed by using an available example"
+                        }
+                    ],
+                    "qualifiers": []
+                }
+            }
+        ],
+        "environment": {},
+        "extra": {
+            "apiCoverage": "100%",
+            "actuatorEnabled": false,
+            "absoluteCoverage": "100%",
+            "specmaticConfigPath": "specmatic.yaml"
+        }
+    },
+    "reportFormat": "CTRF",
+    "specVersion": "1.0.0",
+    "reportId": "cdbe0d16-1337-4d01-b6e9-b4cafd3456ea",
+    "timestamp": "2026-06-21T13:04:50.677Z",
+    "generatedBy": "Specmatic v2.46.3"
+}
