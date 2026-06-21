@@ -788,14 +788,17 @@ int main() {
             commitsCollected = commitsData.slice(0, 10).map((cmt: any, idx: number) => {
               const message = cmt.commit?.message || "Update";
               const isSuspicious = message.toLowerCase().includes("upload") || message.toLowerCase().includes("chatgpt") || idx === 0;
-              return {
+              const commitObj: any = {
                 sha: cmt.sha?.substring(0, 7) || `sh_${idx}`,
                 message,
                 author: cmt.commit?.author?.name || "Student",
                 date: cmt.commit?.author?.date || new Date().toISOString(),
-                isSuspicious,
-                suspicionReason: isSuspicious ? "Initial giant dump with minimal files iteration" : undefined
+                isSuspicious
               };
+              if (isSuspicious) {
+                commitObj.suspicionReason = "Initial giant dump with minimal files iteration";
+              }
+              return commitObj;
             });
           }
         } catch (e) {
@@ -995,7 +998,7 @@ int main() {
             author: s.studentName,
             date: new Date(Date.now() - 36 * 3600 * 1000).toISOString(),
             isSuspicious: isSuspiciousStudent,
-            suspicionReason: isSuspiciousStudent ? "Single giant commit containing final code with no incremental files" : undefined
+            ...(isSuspiciousStudent ? { suspicionReason: "Single giant commit containing final code with no incremental files" } : {})
           },
           {
             sha: "90da1b8",
