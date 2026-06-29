@@ -6,8 +6,7 @@
         "contracts/api.yaml",
         "specs/openapi/user.yaml",
         "specs/openapi/insight.yaml",
-        "specs/openapi/resource.yaml",
-        "specs/asyncapi/analysis.yaml"
+        "specs/openapi/resource.yaml"
       ],
       "stub": [
         "contracts/api.yaml",

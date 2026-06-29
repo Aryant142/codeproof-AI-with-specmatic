@@ -1,0 +1,17 @@
+{
+    "Workflow": {
+        "DEFAULT": {
+            "submitAnalysisSend": {
+                "requestId": "0651773704"
+            },
+            "getUserProfile": {
+                "userEmail": "emprc@crdfi.com"
+            }
+        },
+        "getInsights.IsArrayEmpty": {
+            "getUserProfile": {
+                "userEmail": "ebrtd@cytem.com"
+            }
+        }
+    }
+}

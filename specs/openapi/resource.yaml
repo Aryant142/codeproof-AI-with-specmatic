@@ -9,7 +9,7 @@ info:
     email: codeproof@devs.io
 
 servers:
-  - url: http://resources:3003
+  - url: http://stub:9000
     description: Local development server
 
 tags:
@@ -38,12 +38,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              example:
+                code: "INVALID_RESOURCE_REQUEST"
+                message: "Invalid request parameters for resource allocation"
         "404":
           description: Context or Order not found.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              example:
+                code: "RESOURCE_NOT_FOUND"
+                message: "The requested resource allocation could not be found."
 
 components:
   schemas:

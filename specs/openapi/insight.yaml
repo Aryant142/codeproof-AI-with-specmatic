@@ -9,7 +9,7 @@ info:
     email: codeproof@devs.io
 
 servers:
-  - url: http://insights:3001
+  - url: http://stub:9000
     description: Local development server
 
 tags:
@@ -46,6 +46,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              example:
+                code: "INVALID_INSIGHT_REQUEST"
+                message: "Invalid request parameters for insights"
 
   /insights/{insightId}:
     get:
@@ -74,12 +77,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              example:
+                code: "INVALID_INSIGHT_REQUEST"
+                message: "Invalid request parameters for insight details"
         "404":
           description: Insight not found.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              example:
+                code: "INSIGHT_NOT_FOUND"
+                message: "The requested insightId does not exist"
 
 components:
   schemas:

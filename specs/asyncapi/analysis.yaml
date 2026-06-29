@@ -69,6 +69,11 @@ operations:
       $ref: "#/channels/deliveryUpdates"
     messages:
       - $ref: "#/channels/deliveryUpdates/messages/deliveryStatus"
+    reply:
+      channel:
+        $ref: "#/channels/acceptedAnalyses"
+      messages:
+        - $ref: "#/channels/acceptedAnalyses/messages/acceptedStatus"
 
 components:
   messages:

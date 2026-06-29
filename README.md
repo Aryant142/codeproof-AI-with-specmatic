@@ -91,3 +91,5 @@ Specmatic automatically generates comprehensive reports after runs under the `bu
     npm run dev
     ```
     This launches the backend on port `3000` and serves the frontend client.
+
+     docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.48.0 test --host host.docker.internal --port 9999

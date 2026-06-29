@@ -1,0 +1,19 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/profile",
+    "query": {
+      "userEmail": "student@codeproof.io"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "userId": "user_a1b2c3d4",
+      "profileCode": "STUDENT-CONTEXT"
+    }
+  }
+}

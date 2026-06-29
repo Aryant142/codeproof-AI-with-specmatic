@@ -1,12 +1,47 @@
 services:
   studio:
-    image: specmatic/specmatic:latest
-    entrypoint: ""
-    command: ["specmatic","studio"]
+    image: specmatic/specmatic-studio:latest
     profiles:
       - studio
     ports:
       - "8080:9000"
     volumes:
-      - .:/specmatic
-    working_dir: /specmatic
+      - .:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - UserApi=http://stub:9000
+      - InsightApi=http://stub:9000
+      - ResourceApi=http://stub:9000
+      - AsyncAnalysisApi=kafka:29092
+    entrypoint: ["sh", "-c", "apk add --no-cache docker-cli && exec java $$JAVA_OPTS -jar /usr/local/share/specmatic-studio/specmatic-studio.jar"]
+    depends_on:
+      - stub
+
+  stub:
+    image: specmatic/enterprise:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: ["stub", "--config", "specmatic.yaml"]
+    depends_on:
+      - kafka
+
+  kafka:
+    image: apache/kafka:latest
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0

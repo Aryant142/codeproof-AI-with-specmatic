@@ -1,0 +1,12 @@
+{
+  "http-request": {
+    "method": "PUT",
+    "path": "/resources",
+    "query": {
+      "orderId": 464
+    }
+  },
+  "http-response": {
+    "status": 200
+  }
+}

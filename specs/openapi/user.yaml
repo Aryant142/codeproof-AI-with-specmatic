@@ -9,7 +9,7 @@ info:
     email: codeproof@devs.io
 
 servers:
-  - url: http://user-profile:3000
+  - url: http://stub:9000
     description: Local development server
 
 tags:
@@ -44,12 +44,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: "INVALID_USER"
+                message: "Missing or invalid required parameters: userEmail"
         '404':
           description: User not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: "USER_NOT_FOUND"
+                message: "The requested user email does not exist."
 
 components:
   schemas:
