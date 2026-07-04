@@ -1,30 +1,16 @@
-# CodeProof AI 🛡️🤖
+# CodeProof - AI-Powered API Testing with Specmatic
 
-CodeProof AI is a professional full-stack platform designed to analyze student GitHub repository commits, inspect coding styles, and employ AI reasoning (Groq Llama 3.3 / Google Gemini) to detect AI-generated coursework content.
-
-The project incorporates **Contract-Driven Development (CDD)** principles using **Specmatic**, ensuring strict alignment between the API specifications and the backend implementation.
+This repository contains the **CodeProof AI** service: an intelligent automated code analysis and grading platform that parses student submissions (PDF rosters + GitHub repositories) using large language models, evaluates student code against custom rubric checkpoints, calculates suspicion scores, and generates interactive Viva (oral exam) questions to verify student code ownership.
 
 ---
 
 ## 🚀 Key Features
 
-- **Roster Parsing**: Upload student rosters in PDF format and automatically extract GitHub repository links.
-- **Authenticity Analysis**: Fetch student git commits, directory trees, and files to calculate an AI-generated suspicion score.
-- **AI Fallback Chain**: Intelligent routing through Groq (Llama 3.3 70B) → Google Gemini 3.5 Flash → Offline Static Engine when rate limits are hit.
-- **Oral Exam Generation**: Automatically generates custom Viva/oral examination questions for each student submission.
-- **Contract-Driven Testing**: Leverages Specmatic to assert the correctness of API inputs, error shapes, and schemas — 100% coverage, 29/29 tests passing.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technologies |
-|---|---|
-| **Frontend** | React 19, Vite, TailwindCSS, Motion, Recharts |
-| **Backend** | Node.js, Express, TypeScript (tsx), ADM-ZIP, unpdf |
-| **Database** | Firebase Firestore |
-| **AI** | Google GenAI SDK (Gemini 3.5 Flash), Groq API (Llama 3.3 70B) |
-| **Contract Testing** | Specmatic 2.49.1 |
+- **Automated Roster Parsing:** Upload PDF rosters to extract student names and repository links.
+- **Deep Repository Scan:** Automatically clones student repositories, pulls code samples, and scrapes commit histories.
+- **Plagiarism & AI Detection:** Scans for code anomalies and calculates a plagiarism suspicion score.
+- **Viva Generator:** Automatically creates conceptual oral questions tailored to each student's code.
+- **Contract-First Design:** Backend and frontend are validated using Specmatic against strict OpenAPI contracts.
 
 ---
 
@@ -37,6 +23,15 @@ codeproof/                              ← repo root (Specmatic config lives he
 ├── docker-compose.yml                  ← Specmatic Studio + stub server compose file
 ├── CodeProofAnalysisWorkflow.arazzo.yaml   ← Arazzo workflow definition
 ├── CodeProofAnalysisWorkflow.arazzo_input.json ← Arazzo workflow test inputs
+│
+├── build/                              ← 📊 Specmatic test & stub reports (locally generated)
+│   └── reports/
+│       └── specmatic/
+│           ├── test/
+│           │   ├── ctrf/ctrf-report.json ← Real contract test CTRF report (v2.49.1)
+│           │   └── html/index.html     ← Human-readable HTML test report
+│           └── stub/
+│               └── ctrf/ctrf-report.json ← Stub generation CTRF report
 │
 ├── contracts/                          ← Core backend API contract (tested by Specmatic)
 │   ├── api.yaml                        ← OpenAPI spec for THIS application's backend
@@ -158,6 +153,7 @@ After running contract tests, Specmatic generates reports in `build/reports/spec
 | Report | Path |
 |---|---|
 | HTML Test Report | `build/reports/specmatic/test/html/index.html` |
+| HTML Stub Report | `build/reports/specmatic/stub/html/index.html` |
 | CTRF JSON (CI/CD) | `build/reports/specmatic/test/ctrf/ctrf-report.json` |
 
 ---
