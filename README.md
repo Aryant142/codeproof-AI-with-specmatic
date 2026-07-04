@@ -158,7 +158,6 @@ After running contract tests, Specmatic generates reports in `build/reports/spec
 | Report | Path |
 |---|---|
 | HTML Test Report | `build/reports/specmatic/test/html/index.html` |
-| HTML Stub Report | `build/reports/specmatic/stub/html/index.html` |
 | CTRF JSON (CI/CD) | `build/reports/specmatic/test/ctrf/ctrf-report.json` |
 
 ---
