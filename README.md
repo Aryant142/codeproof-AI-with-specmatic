@@ -174,21 +174,85 @@ docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.4
 
 ## 🗄️ Specmatic Configuration (`specmatic.yaml`)
 
-```yaml
-sources:
-  - provider: filesystem
-    test:
-      - contracts/api.yaml        # ← tested against THIS backend
-    stub:
-      - contracts/api.yaml
-      - specs/openapi/user.yaml
-      - specs/openapi/insight.yaml
-      - specs/openapi/resource.yaml
-      - specs/asyncapi/analysis.yaml
 ```
+version: 3   # Specmatic config version
 
-**Why two sections?**
-- `test`: Specmatic fires requests at your running backend and asserts the responses match the spec.
-- `stub`: Specmatic virtualizes these as smart mock servers so your app can call them without real implementations.
+systemUnderTest:
+  service:
+    $ref: "#/components/services/apiService"   # Main API service under testing
 
-The external specs (`specs/`) are in `stub` only — they are dependencies you consume, not services you implement.
+dependencies:
+  services:
+    - service:
+        $ref: "#/components/services/userService"   # User-related dependent API
+    - service:
+        $ref: "#/components/services/insightService"   # Insight generation service dependency
+    - service:
+        $ref: "#/components/services/resourceService"   # Resource management dependency
+    - service:
+        $ref: "#/components/services/analysisService"   # Async analysis/event service dependency
+
+components:
+  sources:
+    localFilesystem:
+      filesystem:
+        directory: .   # Root directory where contract/spec files exist
+
+  services:
+    apiService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"   # Uses local file source
+            specs:
+              - contracts/api.yaml   # Main OpenAPI contract
+
+    userService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/openapi/user.yaml   # User service OpenAPI spec
+
+    insightService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/openapi/insight.yaml   # Insight API contract
+
+    resourceService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/openapi/resource.yaml   # Resource API contract
+
+    analysisService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/asyncapi/analysis.yaml   # Event-driven async API spec
+
+specmatic:
+  governance:
+    report:
+      formats:
+        - html   # Generates human-readable test coverage report
+        - ctrf   # Generates machine-readable CTRF format report
+      outputDirectory: build/reports/specmatic   # Where reports are stored
+
+    successCriteria:
+      minCoveragePercentage: 100   # Requires full API contract coverage
+      maxMissedOperationsInSpec: 0   # No untested operations allowed
+      enforce: true   # Fails pipeline if criteria are not met
+
+  license:
+    path: /root/.specmatic/specmatic-license.txt   # Path to Specmatic enterprise license
+
+```
