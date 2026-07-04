@@ -28,22 +28,24 @@ The project incorporates **Contract-Driven Development (CDD)** principles using 
 
 ## 📖 Specmatic Integration
 
-This repository follows a strict contract-driven architecture. The API contract is defined in [contracts/api.yaml](./contracts/api.yaml).
+This repository follows a strict contract-driven architecture with distinct API specifications:
+- **`contracts/`**: Contains the main API definitions and examples for the core application (`contracts/api.yaml`).
+- **`specs/`**: Contains the API specifications for the external microservices we depend on (e.g., User Profile, Insights, Resources) which we virtualize during development.
 
 ### 1. Contract Testing
 We deliberately craft bad request bodies (null values, missing required fields, wrong types) in the [contracts/api_examples/](./contracts/api_examples/) folder. Specmatic replays these scenarios against the live server to verify that the application returns the expected `400 Bad Request` schema.
 
 To run the Specmatic contract tests locally:
 ```powershell
-docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.48.0 test --host=host.docker.internal --port=3000 --config specmatic.yaml
+docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.49.1 test --host=host.docker.internal --port=3000 --config specmatic.yaml
 ```
 
 ### 2. Smart Mocking / Service Virtualization
-For microservices that are unimplemented or external dependencies (e.g., User Profile, Insights, Resources), Specmatic virtualizes them as "Smart Mocks". Specmatic validates all incoming requests against the API specs before returning the mock data.
+For microservices that are unimplemented or external dependencies (e.g., User Profile, Insights, Resources defined in the `specs/` folder), Specmatic virtualizes them as "Smart Mocks". Specmatic validates all incoming requests against the API specs before returning the mock data.
 
 To start the Specmatic mock/stub server:
 ```powershell
-docker run --name specmatic-stub -d -p 9000:9000 -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.48.0 stub --config specmatic.yaml
+docker run --name specmatic-stub -d -p 9000:9000 -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.49.1 stub --config specmatic.yaml
 ```
 
 ### 3. Specmatic Studio GUI
@@ -91,5 +93,3 @@ Specmatic automatically generates comprehensive reports after runs under the `bu
     npm run dev
     ```
     This launches the backend on port `3000` and serves the frontend client.
-
-     docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.48.0 test --host host.docker.internal --port 9999
