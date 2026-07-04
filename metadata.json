@@ -1,6 +1,0 @@
-{
-  "name": "CodeProof AI",
-  "description": "CodeProof AI is a professional full-stack platform that scans student GitHub repository commits and employs Gemini reasoning to detect AI-generated assignment content.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

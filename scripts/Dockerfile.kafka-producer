@@ -1,5 +1,0 @@
-FROM node:20-alpine
-WORKDIR /app
-RUN npm install kafkajs uuid
-COPY scripts/kafka-async-producer.js .
-CMD ["node", "kafka-async-producer.js"]
