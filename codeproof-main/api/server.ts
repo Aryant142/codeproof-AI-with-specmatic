@@ -39,6 +39,22 @@ const memoryScans: any[] = [];
 const memoryStudents: any[] = [];
 const memoryReports: any[] = [];
 
+// Helper to perform fetch with a default timeout of 1500ms
+async function fetchWithTimeout(resource: RequestInfo | URL, options: RequestInit & { timeout?: number } = {}) {
+  const { timeout = 1500 } = options;
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  try {
+    const response = await fetch(resource, {
+      ...options,
+      signal: controller.signal
+    });
+    return response;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
 // Helper to check GitHub URL
 function parseGithubUrl(url: string) {
   try {
@@ -384,7 +400,7 @@ ${f.codeSample}
   `;
 
   try {
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const response = await fetchWithTimeout("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${groqApiKey}`,
@@ -782,7 +798,7 @@ int main() {
 
         // 1. Attempt to hit Github REST API for commit information
         try {
-          const commitRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits`, { headers });
+          const commitRes = await fetchWithTimeout(`https://api.github.com/repos/${owner}/${repo}/commits`, { headers, timeout: 1000 });
           if (commitRes.ok) {
             const commitsData = (await commitRes.json()) as any[];
             commitsCollected = commitsData.slice(0, 10).map((cmt: any, idx: number) => {
@@ -810,7 +826,7 @@ int main() {
         try {
           // First, detect default branch dynamically
           try {
-            const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers });
+            const repoRes = await fetchWithTimeout(`https://api.github.com/repos/${owner}/${repo}`, { headers, timeout: 1000 });
             if (repoRes.ok) {
               const repoInfo = await repoRes.json() as any;
               if (repoInfo && repoInfo.default_branch) {
@@ -822,14 +838,14 @@ int main() {
           }
 
           // Fetch trees dynamically
-          const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${defaultBranch}?recursive=1`, { headers });
+          const treeRes = await fetchWithTimeout(`https://api.github.com/repos/${owner}/${repo}/git/trees/${defaultBranch}?recursive=1`, { headers, timeout: 1200 });
           let pathsList: any[] = [];
           if (treeRes.ok) {
             const treeData = (await treeRes.json()) as any;
             pathsList = (treeData.tree || []) as any[];
           } else {
             // Fallback to contents API if tree API failed
-            const contentsRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents`, { headers });
+            const contentsRes = await fetchWithTimeout(`https://api.github.com/repos/${owner}/${repo}/contents`, { headers, timeout: 1200 });
             if (contentsRes.ok) {
               const contentsData = (await contentsRes.json()) as any[];
               pathsList = contentsData.map((f: any) => ({
@@ -877,7 +893,7 @@ int main() {
 
             const fileFetchPromises = targetFiles.map(async (tf) => {
               try {
-                const fileRawRes = await fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${defaultBranch}/${tf.path}`, { headers });
+                const fileRawRes = await fetchWithTimeout(`https://raw.githubusercontent.com/${owner}/${repo}/${defaultBranch}/${tf.path}`, { headers, timeout: 1000 });
                 if (fileRawRes.ok) {
                   const contentString = await fileRawRes.text();
                   const extension = tf.path.split('.').pop() || 'tmp';
@@ -904,12 +920,12 @@ int main() {
           let buffer: ArrayBuffer | null = null;
           try {
             // Attempt main branch ZIP
-            let zipRes = await fetch(`https://github.com/${owner}/${repo}/archive/refs/heads/main.zip`);
+            let zipRes = await fetchWithTimeout(`https://github.com/${owner}/${repo}/archive/refs/heads/main.zip`, { timeout: 1500 });
             if (zipRes.ok) {
               buffer = await zipRes.arrayBuffer();
             } else {
               // Attempt master branch ZIP
-              const zipResMaster = await fetch(`https://github.com/${owner}/${repo}/archive/refs/heads/master.zip`);
+              const zipResMaster = await fetchWithTimeout(`https://github.com/${owner}/${repo}/archive/refs/heads/master.zip`, { timeout: 1500 });
               if (zipResMaster.ok) {
                 buffer = await zipResMaster.arrayBuffer();
               }
@@ -1240,7 +1256,7 @@ app.post('/api/re-analyze', async (req, res) => {
   if (groqApiKey && !isGroqQuotaExceeded) {
     try {
       console.log(`🚀 Routing custom re-analysis via Groq model for file: ${targetFile.fileName}`);
-      const infoResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      const infoResponse = await fetchWithTimeout("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${groqApiKey}`,

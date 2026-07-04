@@ -2,9 +2,6 @@ sources:
   - provider: filesystem
     test:
       - contracts/api.yaml
-      - specs/openapi/user.yaml
-      - specs/openapi/insight.yaml
-      - specs/openapi/resource.yaml
     stub:
       - contracts/api.yaml
       - specs/openapi/user.yaml
