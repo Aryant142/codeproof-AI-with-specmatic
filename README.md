@@ -94,7 +94,7 @@ Edit `.env` inside `codeproof-main/`:
 ```env
 GEMINI_API_KEY=your_google_gemini_api_key
 GROQ_API_KEY=your_groq_api_key
-VITE_APP_PIN=7973
+VITE_APP_PIN="7973"
 ```
 
 > **Note:** `GROQ_API_KEY` is the primary AI engine. Get a free key at [console.groq.com](https://console.groq.com). `GEMINI_API_KEY` is used as fallback only. The app also works in fully offline mode with no keys at all.
