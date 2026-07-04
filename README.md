@@ -26,6 +26,15 @@ The project incorporates **Contract-Driven Development (CDD)** principles using 
 
 ---
 
+## 📁 Repository Structure
+
+*   **`codeproof-main/`**: The core application source code (React frontend and Express backend). **All `npm` commands should be run from this directory.**
+*   **`contracts/`**: Contains the main API definitions (`api.yaml`) and payload examples used for contract testing the core backend.
+*   **`specs/`**: Contains the OpenAPI and AsyncAPI specifications for external stub microservices that the core backend depends on.
+*   **`specmatic.yaml`**: The configuration file for Specmatic, located at the root to test the core backend against the contracts and start the stubs.
+
+---
+
 ## 📖 Specmatic Integration
 
 This repository follows a strict contract-driven architecture with distinct API specifications:
@@ -78,17 +87,22 @@ Specmatic automatically generates comprehensive reports after runs under the `bu
 
 ### Getting Started
 
-1.  **Clone and install dependencies**:
+1.  **Clone the repository and enter the application directory**:
+    ```bash
+    git clone https://github.com/Aryant142/-codeproof-AI-with-specmatic.git
+    cd codeproof-main
+    ```
+2.  **Install dependencies**:
     ```bash
     npm install
     ```
-2.  **Environment Variables**:
-    Create a `.env` file in the root directory:
+3.  **Environment Variables**:
+    Create a `.env` file inside the `codeproof-main/` directory:
     ```env
     GEMINI_API_KEY=your_gemini_api_key
     GROQ_API_KEY=your_groq_api_key
     ```
-3.  **Start the Dev Server**:
+4.  **Start the Dev Server**:
     ```bash
     npm run dev
     ```
