@@ -1,0 +1,19 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/delete-student",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "http-response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "error": "Missing or invalid studentId payload parameter"
+    }
+  }
+}

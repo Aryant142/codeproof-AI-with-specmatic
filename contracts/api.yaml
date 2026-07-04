@@ -1,0 +1,481 @@
+openapi: 3.0.3
+info:
+  title: CodeProof AI API
+  description: API contract for CodeProof AI, a code authenticity detection and student code analysis system.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /api/health:
+    get:
+      summary: Health Check
+      description: Validates API connection state and identifies the active AI engine (Groq, Gemini, or Offline Fallback).
+      responses:
+        '200':
+          description: Server status and configured AI engines
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  apiInitialized:
+                    type: boolean
+                    example: true
+                  isGeminiQuotaExceeded:
+                    type: boolean
+                    example: false
+                  isGroqQuotaExceeded:
+                    type: boolean
+                    example: false
+                  hasGroq:
+                    type: boolean
+                    example: true
+                  activeEngine:
+                    type: string
+                    example: "Groq (Llama 3.3)"
+
+  /api/parse-pdf:
+    post:
+      summary: Parse Student Roster PDF
+      description: Uploads a PDF containing a student roster, extracts student names, and finds GitHub repository links.
+      requestBody:
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: List of parsed students and repository URLs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  students:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        studentName:
+                          type: string
+                          example: "John Doe"
+                        githubUrl:
+                          type: string
+                          example: "https://github.com/johndoe/assignment-1"
+                        isValidUrl:
+                          type: boolean
+                          example: true
+
+  /api/clear-history:
+    post:
+      summary: Clear History
+      description: Purges in-memory scans, students, and reports associated with a specific teacher ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - teacherId
+              properties:
+                teacherId:
+                  type: string
+                  example: "teacher_123"
+      responses:
+        '200':
+          description: In-memory cache cleared successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Successfully cleared memory buffers for teacher teacher_123. Database cleanup handled on the client."
+        '400':
+          description: Missing teacher ID
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: "Missing teacherId payload parameter"
+
+  /api/delete-student:
+    post:
+      summary: Delete Student
+      description: Deletes a specific student record and their report from in-memory cache.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - studentId
+              properties:
+                studentId:
+                  type: string
+                  example: "student_1718600000000_0"
+      responses:
+        '200':
+          description: Student records deleted from memory
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Successfully deleted student student_1718600000000_0 from memory buffers."
+        '400':
+          description: Missing student ID
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: "Missing studentId payload parameter"
+
+  /api/delete-scan:
+    post:
+      summary: Delete Scan
+      description: Deletes a specific scan record and all associated students and reports from in-memory cache.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - scanId
+              properties:
+                scanId:
+                  type: string
+                  example: "scan_1718600000000"
+      responses:
+        '200':
+          description: Scan and all affiliated records deleted from memory
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Successfully deleted scan scan_1718600000000 from memory buffers."
+        '400':
+          description: Missing scan ID
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: "Missing scanId payload parameter"
+
+  /api/scans:
+    post:
+      summary: Start Batch Scan
+      description: Initiates a batch analysis for a roster of students. Fetches their GitHub repositories (commits and code files) and analyzes them using AI models (Groq/Gemini/Fallback) for code authenticity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fileName
+                - teacherId
+                - students
+              properties:
+                fileName:
+                  type: string
+                  description: Roster file name
+                  example: "CS101_Roster.pdf"
+                teacherId:
+                  type: string
+                  description: Teacher identifier
+                  example: "teacher_123"
+                githubToken:
+                  type: string
+                  nullable: true
+                  description: Optional GitHub API token to bypass rate limit
+                  example: "ghp_1234567890abcdef"
+                students:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - studentName
+                      - githubUrl
+                    properties:
+                      studentName:
+                        type: string
+                        example: "John Doe"
+                      githubUrl:
+                        type: string
+                        example: "https://github.com/johndoe/assignment-1"
+                      rollNo:
+                        type: string
+                        nullable: true
+                        example: "CS-01"
+      responses:
+        '200':
+          description: Scan run initialized and finished successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scanId:
+                    type: string
+                    example: "scan_1718600000000"
+                  message:
+                    type: string
+                    example: "Scan completed successfully."
+        '400':
+          description: Missing required properties
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: "Missing required parameters: fileName, students, teacherId"
+
+  /api/reports/{studentId}:
+    get:
+      summary: Get Student Report
+      description: Returns a detailed authenticity and style analysis report for the specified student.
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: Unique identifier of the student
+          schema:
+            type: string
+            example: "student_1718600000000_0"
+      responses:
+        '200':
+          description: Detailed authenticity report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+
+  /api/re-analyze:
+    post:
+      summary: Re-analyze File
+      description: Re-evaluates a specific file in a student's report with custom parameters or guidance prompt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - studentId
+                - fileIndex
+              properties:
+                studentId:
+                  type: string
+                  example: "student_1718600000000_0"
+                fileIndex:
+                  type: integer
+                  description: The index of the target file in the report's files array
+                  example: 0
+                customPrompt:
+                  type: string
+                  nullable: true
+                  description: Custom requirements prompt or instructions for the AI detector
+                  example: "Verify comments follow standard classroom docstring guidelines"
+      responses:
+        '200':
+          description: Re-analysis results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aiExplanation:
+                    type: string
+                    example: "The file 'solution.py' matches expected templates with moderate formatting variations."
+                  scores:
+                    type: object
+                    properties:
+                      suspicionScore:
+                        type: integer
+                        example: 45
+                  engineUsed:
+                    type: string
+                    example: "Groq Llama 3.3"
+        '400':
+          description: Invalid request parameters or types
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: "Missing or invalid required parameters: studentId, fileIndex"
+
+components:
+  schemas:
+    StudentReport:
+      type: object
+      properties:
+        studentId:
+          type: string
+          example: "student_1718600000000_0"
+        scanId:
+          type: string
+          example: "scan_1718600000000"
+        teacherId:
+          type: string
+          example: "teacher_123"
+        studentName:
+          type: string
+          example: "John Doe"
+        githubUrl:
+          type: string
+          example: "https://github.com/johndoe/assignment-1"
+        rollNo:
+          type: string
+          example: "CS-01"
+        suspicionScore:
+          type: integer
+          example: 82
+        reasoning:
+          type: array
+          items:
+            type: string
+          example:
+            - "Single commit contains multi-day complex templates"
+            - "Variable syntax structure is hyper-perfect, standard IDE format style"
+        vivaQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/VivaQuestion'
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyzedFile'
+        commits:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommitInfo'
+        similarityReasons:
+          type: string
+          example: "Similarity scanner matched 88% token parity with AI references (GitHub templates)."
+        engineUsed:
+          type: string
+          example: "Groq Llama 3.3"
+        days:
+          type: array
+          items:
+            type: string
+          example: ["Day 1", "Day 2"]
+
+    VivaQuestion:
+      type: object
+      properties:
+        question:
+          type: string
+          example: "In your file 'solution.py', why was the procedure 'fibonacci_series' designed with these parameters?"
+        expectedConcept:
+          type: string
+          example: "Functional encapsulation and interface isolation"
+        suggestedAnswer:
+          type: string
+          example: "It isolates scope state manipulation from outer registers, preventing memory collision."
+
+    AnalyzedFile:
+      type: object
+      properties:
+        filePath:
+          type: string
+          example: "assignments/Day1/solution.py"
+        fileName:
+          type: string
+          example: "solution.py"
+        language:
+          type: string
+          example: "PYTHON"
+        codeSample:
+          type: string
+          example: "def fibonacci_series(limit):\n..."
+        suspicionScore:
+          type: integer
+          example: 80
+        reasoning:
+          type: array
+          items:
+            type: string
+          example:
+            - "Extremely consistent variable indentation styling throughout."
+        aiExplanation:
+          type: string
+          example: "Authenticity check completed on local backup parser. The file 'solution.py' exhibits standard visual formatting conventions."
+        summary:
+          type: string
+          example: "Statically analyzed solution.py: Implements standard algorithmic routines in PYTHON."
+        vivaQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/VivaQuestion'
+
+    CommitInfo:
+      type: object
+      properties:
+        sha:
+          type: string
+          example: "71cb3db"
+        message:
+          type: string
+          example: "Initial commit: Completed entire assignment"
+        author:
+          type: string
+          example: "John Doe"
+        date:
+          type: string
+          example: "2026-06-16T14:50:07Z"
+        isSuspicious:
+          type: boolean
+          example: true
+        suspicionReason:
+          type: string
+          example: "Initial giant dump with minimal files iteration"

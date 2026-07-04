@@ -1,0 +1,69 @@
+{
+  "entities": {
+    "Scan": {
+      "title": "Scan",
+      "description": "Represents an uploaded Excel sheet with github repositories and student assignments to analyze",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "fileName": { "type": "string" },
+        "uploadedAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "running", "completed", "failed"] },
+        "studentCount": { "type": "integer" }
+      },
+      "required": ["id", "teacherId", "fileName", "uploadedAt", "status", "studentCount"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Represents a simplified summary of a student's scanned assignment repository and final score",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "scanId": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "suspicionScore": { "type": "integer" },
+        "commitQuality": { "type": "string", "enum": ["Excellent", "Good", "Suspicious", "Critical"] },
+        "similarityPercentage": { "type": "integer" },
+        "status": { "type": "string", "enum": ["completed", "analyzing", "failed"] },
+        "analyzedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "scanId", "teacherId", "studentName", "githubUrl", "suspicionScore", "commitQuality", "similarityPercentage", "status", "analyzedAt"]
+    },
+    "StudentReport": {
+      "title": "StudentReport",
+      "description": "Represents the comprehensive detailed analysis, repositories structure, commit timeline, code comparisons and AI generated viva questions",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "scanId": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "suspicionScore": { "type": "integer" },
+        "reasoning": { "type": "array" },
+        "vivaQuestions": { "type": "array" },
+        "files": { "type": "array" },
+        "commits": { "type": "array" },
+        "similarityReasons": { "type": "string" }
+      },
+      "required": ["studentId", "scanId", "teacherId", "studentName", "githubUrl", "suspicionScore", "reasoning", "vivaQuestions", "files", "commits"]
+    }
+  },
+  "firestore": {
+    "scans/{scanId}": {
+      "schema": "Scan",
+      "description": "Excel upload scans triggered by a teacher"
+    },
+    "students/{studentId}": {
+      "schema": "Student",
+      "description": "Student assignment analyses summaries"
+    },
+    "student_reports/{studentId}": {
+      "schema": "StudentReport",
+      "description": "Deep-dive analysis of security patterns and AI likelihood for each searched student assignment"
+    }
+  }
+}

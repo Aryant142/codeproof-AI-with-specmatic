@@ -1,0 +1,365 @@
+{
+    "specmaticConfigPath": "/usr/src/app/specmatic.yaml",
+    "stubUsage": [
+        {
+            "type": "filesystem",
+            "repository": "",
+            "specification": "contracts/api.yaml",
+            "branch": "",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/api/health",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/parse-pdf",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/clear-history",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/clear-history",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 3
+                },
+                {
+                    "path": "/api/delete-student",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/delete-student",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 3
+                },
+                {
+                    "path": "/api/delete-scan",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/delete-scan",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 3
+                },
+                {
+                    "path": "/api/scans",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/scans",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 8
+                },
+                {
+                    "path": "/api/reports/{studentId}",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/re-analyze",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/re-analyze",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 4
+                }
+            ]
+        },
+        {
+            "type": "filesystem",
+            "repository": "",
+            "specification": "specs/openapi/user.yaml",
+            "branch": "",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/profile",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/profile",
+                    "method": "GET",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/profile",
+                    "method": "GET",
+                    "responseCode": 404,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "type": "filesystem",
+            "repository": "",
+            "specification": "specs/openapi/insight.yaml",
+            "branch": "",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/insights",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/insights",
+                    "method": "GET",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/insights/{insightId}",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/insights/{insightId}",
+                    "method": "GET",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/insights/{insightId}",
+                    "method": "GET",
+                    "responseCode": 404,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "type": "filesystem",
+            "repository": "",
+            "specification": "specs/openapi/resource.yaml",
+            "branch": "",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/resources",
+                    "method": "PUT",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/resources",
+                    "method": "PUT",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/resources",
+                    "method": "PUT",
+                    "responseCode": 404,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "type": "filesystem",
+            "specification": "contracts/api.yaml",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/api/health",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/parse-pdf",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/clear-history",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/clear-history",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 3
+                },
+                {
+                    "path": "/api/delete-student",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/delete-student",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 3
+                },
+                {
+                    "path": "/api/delete-scan",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/delete-scan",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 3
+                },
+                {
+                    "path": "/api/scans",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/scans",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 8
+                },
+                {
+                    "path": "/api/reports/{studentId}",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/re-analyze",
+                    "method": "POST",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/api/re-analyze",
+                    "method": "POST",
+                    "responseCode": 400,
+                    "count": 4
+                }
+            ]
+        },
+        {
+            "type": "filesystem",
+            "specification": "specs/openapi/user.yaml",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/profile",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/profile",
+                    "method": "GET",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/profile",
+                    "method": "GET",
+                    "responseCode": 404,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "type": "filesystem",
+            "specification": "specs/openapi/insight.yaml",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/insights",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/insights",
+                    "method": "GET",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/insights/{insightId}",
+                    "method": "GET",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/insights/{insightId}",
+                    "method": "GET",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/insights/{insightId}",
+                    "method": "GET",
+                    "responseCode": 404,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "type": "filesystem",
+            "specification": "specs/openapi/resource.yaml",
+            "serviceType": "HTTP",
+            "specType": "OPENAPI",
+            "operations": [
+                {
+                    "path": "/resources",
+                    "method": "PUT",
+                    "responseCode": 200,
+                    "count": 1
+                },
+                {
+                    "path": "/resources",
+                    "method": "PUT",
+                    "responseCode": 400,
+                    "count": 1
+                },
+                {
+                    "path": "/resources",
+                    "method": "PUT",
+                    "responseCode": 404,
+                    "count": 1
+                }
+            ]
+        }
+    ]
+}
