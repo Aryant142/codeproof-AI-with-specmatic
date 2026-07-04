@@ -128,7 +128,7 @@ Expected result: **Tests run: 29, Successes: 29, Failures: 0, Errors: 0** ✅
 
 ### 2. Start Stub / Mock Server
 
-Starts smart mocks for all external microservice specs (`specs/openapi/` and `specs/asyncapi/`) on port `9000`:
+Starts smart mocks for all external microservice specs (`specs/openapi/` and `specs/asyncapi/`) on port `9000` (or `9001` if using Docker Compose):
 
 ```powershell
 docker run --name specmatic-stub -d -p 9000:9000 -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.49.1 stub --config specmatic.yaml
@@ -142,8 +142,9 @@ Specmatic Studio provides a visual interface to explore specs, mock endpoints, a
 docker compose --profile studio up -d
 ```
 
-Access the dashboard at **[http://localhost:8080](http://localhost:8080)**.
+Access the dashboard at **[http://localhost:9000/_specmatic/studio](http://localhost:9000/_specmatic/studio)**.
 
+*(Note: When running Specmatic Studio via Docker Compose, the Stub server runs on port `9001` instead of `9000` to avoid port conflicts.)*
 ---
 
 ## 📊 Test Reports
