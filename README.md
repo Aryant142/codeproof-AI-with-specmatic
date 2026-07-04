@@ -27,6 +27,8 @@ codeproof/                              ← repo root (Specmatic config lives he
 ├── build/                              ← 📊 Specmatic test & stub reports (locally generated)
 │   └── reports/
 │       └── specmatic/
+│           ├── Arazzo/
+│           │   └── html/index.html     ← Human-readable HTML Arazzo workflow test report
 │           ├── test/
 │           │   ├── ctrf/ctrf-report.json ← Real contract test CTRF report (v2.49.1)
 │           │   └── html/index.html     ← Human-readable HTML test report
@@ -155,6 +157,7 @@ After running contract tests, Specmatic generates reports in `build/reports/spec
 | HTML Test Report | `build/reports/specmatic/test/html/index.html` |
 | HTML Stub Report | `build/reports/specmatic/stub/html/index.html` |
 | CTRF JSON (CI/CD) | `build/reports/specmatic/test/ctrf/ctrf-report.json` |
+| HTML Arazzo Report | `build/reports/specmatic/Arazzo/html/index.html` |
 
 ---
 
