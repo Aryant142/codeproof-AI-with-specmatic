@@ -1,29 +1,34 @@
 services:
   studio:
-    image: specmatic/specmatic-studio:latest
+    image: specmatic/enterprise:latest
     profiles:
       - studio
     ports:
-      - "8080:9000"
+      - "9000:9000"
     volumes:
       - .:/usr/src/app
       - /var/run/docker.sock:/var/run/docker.sock
+      - ${USERPROFILE}/.specmatic:/root/.specmatic
     environment:
       - UserApi=http://stub:9000
       - InsightApi=http://stub:9000
       - ResourceApi=http://stub:9000
       - AsyncAnalysisApi=kafka:29092
-    entrypoint: ["sh", "-c", "apk add --no-cache docker-cli && exec java $$JAVA_OPTS -jar /usr/local/share/specmatic-studio/specmatic-studio.jar"]
+      - SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt
+    command: ["studio"]
     depends_on:
       - stub
 
   stub:
     image: specmatic/enterprise:latest
     ports:
-      - "9000:9000"
+      - "9001:9000"
     volumes:
       - .:/usr/src/app
+      - ${USERPROFILE}/.specmatic:/root/.specmatic
     working_dir: /usr/src/app
+    environment:
+      - SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt
     command: ["stub", "--config", "specmatic.yaml"]
     depends_on:
       - kafka
