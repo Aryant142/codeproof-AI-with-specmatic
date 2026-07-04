@@ -31,9 +31,7 @@ codeproof/                              ← repo root (Specmatic config lives he
 │           │   └── html/index.html     ← Human-readable HTML Arazzo workflow test report
 │           ├── test/
 │           │   ├── ctrf/ctrf-report.json ← Real contract test CTRF report (v2.49.1)
-│           │   └── html/index.html     ← Human-readable HTML test report
-│           └── stub/
-│               └── ctrf/ctrf-report.json ← Stub generation CTRF report
+│               └── html/index.html     ← Human-readable HTML test report
 │
 ├── contracts/                          ← Core backend API contract (tested by Specmatic)
 │   ├── api.yaml                        ← OpenAPI spec for THIS application's backend
