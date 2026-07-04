@@ -1,16 +1,76 @@
-sources:
-  - provider: filesystem
-    test:
-      - contracts/api.yaml
-    stub:
-      - contracts/api.yaml
-      - specs/openapi/user.yaml
-      - specs/openapi/insight.yaml
-      - specs/openapi/resource.yaml
-      - specs/asyncapi/analysis.yaml
+version: 3
 
-report:
-  formatters:
-    - type: html
-    - type: ctrf
+systemUnderTest:
+  service:
+    $ref: "#/components/services/apiService"
+
+dependencies:
+  services:
+    - service:
+        $ref: "#/components/services/userService"
+    - service:
+        $ref: "#/components/services/insightService"
+    - service:
+        $ref: "#/components/services/resourceService"
+    - service:
+        $ref: "#/components/services/analysisService"
+
+components:
+  sources:
+    localFilesystem:
+      filesystem:
+        directory: .
+
+  services:
+    apiService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - contracts/api.yaml
+    userService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/openapi/user.yaml
+    insightService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/openapi/insight.yaml
+    resourceService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/openapi/resource.yaml
+    analysisService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/localFilesystem"
+            specs:
+              - specs/asyncapi/analysis.yaml
+
+specmatic:
+  governance:
+    report:
+      formats:
+        - html
+        - ctrf
+      outputDirectory: build/reports/specmatic
+    successCriteria:
+      minCoveragePercentage: 100
+      maxMissedOperationsInSpec: 0
+      enforce: true
+  license:
+    path: /root/.specmatic/specmatic-license.txt
+
+
 
