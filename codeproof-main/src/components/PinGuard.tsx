@@ -13,7 +13,9 @@ export default function PinGuard({ onSuccess }: PinGuardProps) {
   const [isSuccess, setIsSuccess] = useState(false);
 
   // Read environment variable if set, otherwise fallback to "7973"
-  const CORRECT_PIN = (import.meta as any).env?.VITE_APP_PIN || '7973';
+  // Strip surrounding quotes defensively in case .env value is written as "7973"
+  const rawPin = (import.meta as any).env?.VITE_APP_PIN || '7973';
+  const CORRECT_PIN = String(rawPin).replace(/^["']|["']$/g, '');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
