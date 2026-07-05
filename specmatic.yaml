@@ -1,5 +1,4 @@
 version: 3
-
 systemUnderTest:
   service:
     $ref: "#/components/services/apiService"
@@ -70,7 +69,5 @@ specmatic:
       maxMissedOperationsInSpec: 0
       enforce: true
   license:
-    path: /root/.specmatic/specmatic-license.txt
-
-
+    path: "{SPECMATIC_LICENSE_PATH:/root/.specmatic/specmatic-license.txt}"
 
