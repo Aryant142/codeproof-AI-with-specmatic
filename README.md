@@ -37,7 +37,7 @@ codeproof/                              ← repo root (Specmatic config lives he
 │   ├── api.yaml                        ← OpenAPI spec for THIS application's backend
 │   └── api_examples/                   ← Example request/response payloads (valid + invalid)
 │
-├── specs/                              ← External microservice specs (stubbed, NOT tested)
+├── specs/                              ← External microservice specs
 │   ├── openapi/
 │   │   ├── user.yaml                   ← User Profile microservice stub
 │   │   ├── insight.yaml                ← Insights microservice stub
