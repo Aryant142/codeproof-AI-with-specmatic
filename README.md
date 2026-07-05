@@ -48,12 +48,12 @@ codeproof/                              ← repo root (Specmatic config lives he
 │
 ├── build/                              ← 📊 Specmatic test & stub reports (locally generated)
 │   └── reports/
-│       └── specmatic/
-│           ├── Arazzo/
-│           │   └── html/index.html     ← Human-readable HTML Arazzo workflow test report
-│           ├── test/
-│           │   ├── ctrf/ctrf-report.json ← Real contract test CTRF report (v2.49.1)
-│               └── html/index.html     ← Human-readable HTML test report
+│       ├── contract-test/              ← Saved Specmatic contract test reports
+│       │   ├── ctrf/ctrf-report.json   ← Contract test CTRF report (v2.49.1)
+│       │   └── html/index.html         ← Contract test HTML report
+│       └── specmatic/                  ← Saved Specmatic workflow (Arazzo) test reports
+│           └── test/
+│               └── html/index.html     ← Arazzo workflow HTML report
 │
 ├── contracts/                          ← Core backend API contract (tested by Specmatic)
 │   ├── api.yaml                        ← OpenAPI spec for THIS application's backend
@@ -172,13 +172,13 @@ Access the dashboard at **[http://localhost:9000/_specmatic/studio](http://local
 
 ## 📊 Test Reports
 
-After running contract tests, Specmatic generates reports in `build/reports/specmatic/`:
+After running the tests, Specmatic outputs and stores the reports in the following locations:
 
-| Report | Path |
+| Report Type | Local Workspace Path |
 |---|---|
-| HTML Test Report | `build/reports/specmatic/test/html/index.html` |
-| CTRF JSON (CI/CD) | `build/reports/specmatic/test/ctrf/ctrf-report.json` |
-| HTML Arazzo Report | `build/reports/specmatic/Arazzo/html/index.html` |
+| **Contract Test HTML Report** | `build/reports/contract-test/html/index.html` |
+| **Contract Test CTRF JSON** | `build/reports/contract-test/ctrf/ctrf-report.json` |
+| **Arazzo Workflow HTML Report** | `build/reports/specmatic/test/html/index.html` |
 
 ---
 
