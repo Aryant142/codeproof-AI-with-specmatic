@@ -56,13 +56,25 @@ jobs:
           echo "Running Specmatic Contract Tests..."
           npx specmatic@2.49.1 test --host=127.0.0.1 --port=3000 --config specmatic.yaml
           
+          echo "Backing up Contract Test Reports..."
+          mkdir -p build/reports/contract-test
+          cp -r build/reports/specmatic/test/ build/reports/contract-test/
+          
           echo "Running Specmatic Workflow Tests..."
           npx specmatic@2.49.1 test --workflow --host=127.0.0.1 --port=3000 --config specmatic.yaml
 
-      - name: Upload Specmatic Reports
+      - name: Upload Specmatic Contract Test Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: specmatic-reports
+          name: specmatic-contract-test-reports
+          path: build/reports/contract-test/
+          retention-days: 14
+
+      - name: Upload Specmatic Workflow Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: specmatic-workflow-test-reports
           path: build/reports/specmatic/
           retention-days: 14
