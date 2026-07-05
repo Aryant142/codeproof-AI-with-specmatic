@@ -161,18 +161,6 @@ Access the dashboard at **[http://localhost:9000/_specmatic/studio](http://local
 *(Note: When running Specmatic Studio via Docker Compose, the Stub server runs on port `9001` instead of `9000` to avoid port conflicts.)*
 ---
 
-## 📊 Test Reports
-
-After running the tests, Specmatic outputs and stores the reports in the following locations:
-
-| Report Type | Local Workspace Path |
-|---|---|
-| **Contract Test HTML Report** | `build/reports/contract-test/html/index.html` |
-| **Contract Test CTRF JSON** | `build/reports/contract-test/ctrf/ctrf-report.json` |
-| **Arazzo Workflow HTML Report** | `build/reports/specmatic/test/html/index.html` |
-
----
-
 ## 🔄 Arazzo Workflow Testing
 
 The repository includes an Arazzo workflow definition for end-to-end API flow testing:
