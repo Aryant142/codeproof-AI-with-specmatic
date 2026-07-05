@@ -57,6 +57,11 @@ jobs:
           mkdir -p /home/runner/.specmatic
           echo "$SPECMATIC_LICENSE_CONTENT" | tr -d '\r' > /home/runner/.specmatic/specmatic-license.txt
           
+          echo "License file diagnostics:"
+          echo "Actual file size: $(wc -c < /home/runner/.specmatic/specmatic-license.txt) bytes"
+          echo "Actual file line count: $(wc -l < /home/runner/.specmatic/specmatic-license.txt)"
+          echo "Actual file SHA256: $(sha256sum /home/runner/.specmatic/specmatic-license.txt | cut -d' ' -f1)"
+          
           echo "Starting Specmatic Stubs on port 9000..."
           npx specmatic@2.49.1 stub --port=9000 --config specmatic.yaml &
           echo "Waiting for Specmatic Stubs to start..."
