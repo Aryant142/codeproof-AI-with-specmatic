@@ -36,31 +36,27 @@ jobs:
         run: |
           docker compose up -d kafka
 
-      - name: Start Express Application
+      - name: Start Express Application and Run Specmatic Tests
         env:
           GEMINI_API_KEY: "mock_key"
           GROQ_API_KEY: "mock_key"
           VITE_APP_PIN: "7973"
+          SPECMATIC_LICENSE_CONTENT: ${{ secrets.SPECMATIC_LICENSE_CONTENT }}
+          UserApi: http://127.0.0.1:9000
+          InsightApi: http://127.0.0.1:9000
+          ResourceApi: http://127.0.0.1:9000
         run: |
           cd codeproof-main
           npm run dev &
           echo "Waiting for backend server to start..."
           npx wait-on -t 20000 http://localhost:3000/api/health
           echo "Backend server started successfully!"
-
-      - name: Run Specmatic Contract Tests
-        env:
-          SPECMATIC_LICENSE_CONTENT: ${{ secrets.SPECMATIC_LICENSE_CONTENT }}
-        run: |
+          cd ..
+          
+          echo "Running Specmatic Contract Tests..."
           npx specmatic@2.49.1 test --host=127.0.0.1 --port=3000 --config specmatic.yaml
-
-      - name: Run Specmatic Workflow Tests
-        env:
-          SPECMATIC_LICENSE_CONTENT: ${{ secrets.SPECMATIC_LICENSE_CONTENT }}
-          UserApi: http://127.0.0.1:9000
-          InsightApi: http://127.0.0.1:9000
-          ResourceApi: http://127.0.0.1:9000
-        run: |
+          
+          echo "Running Specmatic Workflow Tests..."
           npx specmatic@2.49.1 test --workflow --host=127.0.0.1 --port=3000 --config specmatic.yaml
 
       - name: Upload Specmatic Reports
