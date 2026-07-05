@@ -121,7 +121,8 @@ Specmatic is pre-configured in `specmatic.yaml`. It tests the core backend (`con
 Make sure your backend is running first (`npm run dev` inside `codeproof-main/`), then from the **repo root**:
 
 ```powershell
-docker run --rm -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.49.1 test --host=host.docker.internal --port=3000 --config specmatic.yaml
+docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/specmatic:2.49.1 test --host=host.docker.internal --port=3000 --config specmatic.yaml --timeout=30
+
 ```
 
 Expected result: **Tests run: 29, Successes: 29, Failures: 0, Errors: 0** ✅
