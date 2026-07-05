@@ -42,10 +42,15 @@ jobs:
           GROQ_API_KEY: "mock_key"
           VITE_APP_PIN: "7973"
           SPECMATIC_LICENSE_CONTENT: ${{ secrets.SPECMATIC_LICENSE_CONTENT }}
+          SPECMATIC_LICENSE_PATH: /home/runner/.specmatic/specmatic-license.txt
           UserApi: http://127.0.0.1:9000
           InsightApi: http://127.0.0.1:9000
           ResourceApi: http://127.0.0.1:9000
         run: |
+          echo "Writing Specmatic License File..."
+          mkdir -p /home/runner/.specmatic
+          echo "$SPECMATIC_LICENSE_CONTENT" > /home/runner/.specmatic/specmatic-license.txt
+          
           cd codeproof-main
           npm run dev &
           echo "Waiting for backend server to start..."
@@ -62,7 +67,7 @@ jobs:
           cp -r build/reports/specmatic/test/ build/reports/contract-test/
           
           echo "Running Specmatic Workflow Tests..."
-          npx specmatic@2.49.1 test --workflow --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-workflow.log 2>&1 || echo "Specmatic workflow exited with code $?"
+          npx specmatic@2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-workflow.log 2>&1 || echo "Specmatic workflow exited with code $?"
           cat specmatic-workflow.log
 
       - name: Upload Specmatic Contract Test Reports
