@@ -171,3 +171,19 @@ The repository includes an Arazzo workflow definition for end-to-end API flow te
 ```powershell
 docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/specmatic:2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic.yaml
 ```
+
+---
+
+## 📋 CI/CD — GitHub Actions
+
+Every push and `pull_request` to `main` automatically runs contract and workflow tests:
+
+- Installs Node.js 20 + Java 17 (required by Specmatic).
+- Installs all dependencies and builds the TypeScript backend.
+- Validates all Specmatic examples and externalized request/response specs.
+- Starts the Kafka services and virtualizes downstream Specmatic stubs on port `9000`.
+- Starts the Express backend server and runs the full CLI Specmatic contract tests.
+- Runs Specmatic workflow tests against the Arazzo specification.
+- Uploads the Specmatic HTML test reports and CTRF results as build artifacts.
+
+See [.github/workflows/specmatic-ci.yml](file:///.github/workflows/specmatic-ci.yml) for the full pipeline definition.
