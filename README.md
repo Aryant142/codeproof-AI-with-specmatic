@@ -41,6 +41,11 @@ Integrating **Specmatic** into the CodeProof AI project solves critical architec
 ```
 codeproof/                              ← repo root (Specmatic config lives here)
 │
+├── .github/
+│   └── workflows/
+│     └── specmatic-ci.yml              # CI pipeline: contract + workflow tests
+|
+|
 ├── specmatic.yaml                      ← Specmatic config: test & stub sources
 ├── docker-compose.yml                  ← Specmatic Studio + stub server compose file
 ├── CodeProofAnalysisWorkflow.arazzo.yaml   ← Arazzo workflow definition
