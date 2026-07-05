@@ -127,8 +127,15 @@ docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root
 
 Expected result: **Tests run: 29, Successes: 29, Failures: 0, Errors: 0** ✅
 
+### 2. Start Stub / Mock Server
 
-### 2. Specmatic Studio (GUI)
+Starts smart mocks for all external microservice specs (`specs/openapi/` and `specs/asyncapi/`) on port `9000` (or `9001` if using Docker Compose):
+
+```powershell
+docker run --name specmatic-stub -d -p 9000:9000 -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.49.1 stub --config specmatic.yaml
+```
+
+### 3. Specmatic Studio (GUI)
 
 Specmatic Studio provides a visual interface to explore specs, mock endpoints, and view coverage. From the **repo root**:
 

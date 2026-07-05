@@ -47,9 +47,21 @@ jobs:
           InsightApi: http://127.0.0.1:9000
           ResourceApi: http://127.0.0.1:9000
         run: |
+          echo "Checking Specmatic License Secret..."
+          if [ -z "$SPECMATIC_LICENSE_CONTENT" ]; then
+            echo "::error::SPECMATIC_LICENSE_CONTENT secret is empty or not set! Please add it to your GitHub Repository Secrets."
+            exit 1
+          fi
+          
           echo "Writing Specmatic License File..."
           mkdir -p /home/runner/.specmatic
-          echo "$SPECMATIC_LICENSE_CONTENT" > /home/runner/.specmatic/specmatic-license.txt
+          echo "$SPECMATIC_LICENSE_CONTENT" | tr -d '\r' > /home/runner/.specmatic/specmatic-license.txt
+          
+          echo "Starting Specmatic Stubs on port 9000..."
+          npx specmatic@2.49.1 stub --port=9000 --config specmatic.yaml &
+          echo "Waiting for Specmatic Stubs to start..."
+          npx wait-on -t 20000 tcp:127.0.0.1:9000
+          echo "Specmatic Stubs started successfully!"
           
           cd codeproof-main
           npm run dev &
