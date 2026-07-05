@@ -46,15 +46,6 @@ codeproof/                              ← repo root (Specmatic config lives he
 ├── CodeProofAnalysisWorkflow.arazzo.yaml   ← Arazzo workflow definition
 ├── CodeProofAnalysisWorkflow.arazzo_input.json ← Arazzo workflow test inputs
 │
-├── build/                              ← 📊 Specmatic test & stub reports (locally generated)
-│   └── reports/
-│       ├── contract-test/              ← Saved Specmatic contract test reports
-│       │   ├── ctrf/ctrf-report.json   ← Contract test CTRF report (v2.49.1)
-│       │   └── html/index.html         ← Contract test HTML report
-│       └── specmatic/                  ← Saved Specmatic workflow (Arazzo) test reports
-│           └── test/
-│               └── html/index.html     ← Arazzo workflow HTML report
-│
 ├── contracts/                          ← Core backend API contract (tested by Specmatic)
 │   ├── api.yaml                        ← OpenAPI spec for THIS application's backend
 │   └── api_examples/                   ← Example request/response payloads (valid + invalid)
