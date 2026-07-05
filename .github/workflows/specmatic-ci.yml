@@ -62,3 +62,11 @@ jobs:
           ResourceApi: http://127.0.0.1:9000
         run: |
           npx specmatic@2.49.1 test --workflow --host=127.0.0.1 --port=3000 --config specmatic.yaml
+
+      - name: Upload Specmatic Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: specmatic-reports
+          path: build/reports/specmatic/
+          retention-days: 14

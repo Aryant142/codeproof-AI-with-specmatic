@@ -1,8 +1,5 @@
 node_modules/
 build/
-!build/reports/
-!build/reports/specmatic/
-!build/reports/specmatic/**
 dist/
 coverage/
 .DS_Store
