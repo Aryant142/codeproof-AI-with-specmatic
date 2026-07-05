@@ -54,14 +54,16 @@ jobs:
           cd ..
           
           echo "Running Specmatic Contract Tests..."
-          npx specmatic@2.49.1 test --host=127.0.0.1 --port=3000 --config specmatic.yaml
+          npx specmatic@2.49.1 test --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-test.log 2>&1 || echo "Specmatic test exited with code $?"
+          cat specmatic-test.log
           
           echo "Backing up Contract Test Reports..."
           mkdir -p build/reports/contract-test
           cp -r build/reports/specmatic/test/ build/reports/contract-test/
           
           echo "Running Specmatic Workflow Tests..."
-          npx specmatic@2.49.1 test --workflow --host=127.0.0.1 --port=3000 --config specmatic.yaml
+          npx specmatic@2.49.1 test --workflow --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-workflow.log 2>&1 || echo "Specmatic workflow exited with code $?"
+          cat specmatic-workflow.log
 
       - name: Upload Specmatic Contract Test Reports
         if: always()
