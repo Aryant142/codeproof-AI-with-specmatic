@@ -32,6 +32,7 @@ components:
               - spec:
                   id: apiSpec
                   path: contracts/api.yaml
+                  actuatorUrl: http://localhost:3000/actuator
     userService:
       definitions:
         - definition:
@@ -64,11 +65,10 @@ components:
   runOptions:
     apiService:
       openapi:
-        type: mock
+        type: test
         specs:
           - spec:
               id: apiSpec
-              actuatorUrl: http://localhost:3000/actuator
 
 specmatic:
   governance:
