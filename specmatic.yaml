@@ -2,6 +2,8 @@ version: 3
 systemUnderTest:
   service:
     $ref: "#/components/services/apiService"
+    runOptions:
+      $ref: "#/components/runOptions/apiService"
 
 dependencies:
   services:
@@ -27,7 +29,9 @@ components:
             source:
               $ref: "#/components/sources/localFilesystem"
             specs:
-              - contracts/api.yaml
+              - spec:
+                  id: apiSpec
+                  path: contracts/api.yaml
     userService:
       definitions:
         - definition:
@@ -56,6 +60,15 @@ components:
               $ref: "#/components/sources/localFilesystem"
             specs:
               - specs/asyncapi/analysis.yaml
+
+  runOptions:
+    apiService:
+      openapi:
+        type: mock
+        specs:
+          - spec:
+              id: apiSpec
+              actuatorUrl: http://localhost:3000/actuator
 
 specmatic:
   governance:

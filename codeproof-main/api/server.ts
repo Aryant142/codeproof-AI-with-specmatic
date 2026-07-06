@@ -1362,6 +1362,116 @@ app.post('/api/re-analyze', async (req, res) => {
   }
 });
 
+// Spring Boot Actuator Mappings compatibility for Specmatic API Coverage Analysis
+app.get('/actuator/health', (req, res) => {
+  res.json({ status: 'UP' });
+});
+
+app.get('/actuator', (req, res) => {
+  res.json({
+    _links: {
+      self: { href: 'http://localhost:3000/actuator', templated: false },
+      health: { href: 'http://localhost:3000/actuator/health', templated: false },
+      mappings: { href: 'http://localhost:3000/actuator/mappings', templated: false }
+    }
+  });
+});
+
+app.get('/actuator/mappings', (req, res) => {
+  res.json({
+    contexts: {
+      application: {
+        mappings: {
+          dispatcherServlets: {
+            dispatcherServlet: [
+              {
+                handler: "api.health",
+                predicate: "{GET [/api/health]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["GET"],
+                    patterns: ["/api/health"]
+                  }
+                }
+              },
+              {
+                handler: "api.parsePdf",
+                predicate: "{POST [/api/parse-pdf]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["POST"],
+                    patterns: ["/api/parse-pdf"]
+                  }
+                }
+              },
+              {
+                handler: "api.clearHistory",
+                predicate: "{POST [/api/clear-history]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["POST"],
+                    patterns: ["/api/clear-history"]
+                  }
+                }
+              },
+              {
+                handler: "api.deleteStudent",
+                predicate: "{POST [/api/delete-student]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["POST"],
+                    patterns: ["/api/delete-student"]
+                  }
+                }
+              },
+              {
+                handler: "api.deleteScan",
+                predicate: "{POST [/api/delete-scan]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["POST"],
+                    patterns: ["/api/delete-scan"]
+                  }
+                }
+              },
+              {
+                handler: "api.scans",
+                predicate: "{POST [/api/scans]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["POST"],
+                    patterns: ["/api/scans"]
+                  }
+                }
+              },
+              {
+                handler: "api.reports",
+                predicate: "{GET [/api/reports/{studentId}]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["GET"],
+                    patterns: ["/api/reports/{studentId}"]
+                  }
+                }
+              },
+              {
+                handler: "api.reAnalyze",
+                predicate: "{POST [/api/re-analyze]}",
+                details: {
+                  requestMappingConditions: {
+                    methods: ["POST"],
+                    patterns: ["/api/re-analyze"]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  });
+});
+
 // Vite Middleware implementation for production-ready asset serving
 async function initializeServer() {
   if (process.env.NODE_ENV !== "production") {

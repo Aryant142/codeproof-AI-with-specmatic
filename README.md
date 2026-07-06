@@ -138,9 +138,14 @@ Specmatic is pre-configured in `specmatic.yaml`. It tests the core backend (`con
 
 Make sure your backend is running first (`npm run dev` inside `codeproof-main/`), then from the **repo root**:
 
+**Windows (PowerShell):**
 ```powershell
 docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/specmatic:2.49.1 test --host=host.docker.internal --port=3000 --config specmatic.yaml --timeout=30
+```
 
+**macOS / Linux (Bash/Zsh):**
+```bash
+docker run --rm -v "$PWD:/usr/src/app" -v "$HOME/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/specmatic:2.49.1 test --host=host.docker.internal --port=3000 --config specmatic.yaml --timeout=30
 ```
 
 Expected result: **Tests run: 29, Successes: 29, Failures: 0, Errors: 0** ✅
@@ -149,21 +154,29 @@ Expected result: **Tests run: 29, Successes: 29, Failures: 0, Errors: 0** ✅
 
 Starts smart mocks for all external microservice specs (`specs/openapi/` and `specs/asyncapi/`) on port `9000` (or `9001` if using Docker Compose):
 
+**Windows (PowerShell):**
 ```powershell
 docker run --name specmatic-stub -d -p 9000:9000 -v "${PWD}:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.49.1 stub --config specmatic.yaml
+```
+
+**macOS / Linux (Bash/Zsh):**
+```bash
+docker run --name specmatic-stub -d -p 9000:9000 -v "$PWD:/usr/src/app" -w /usr/src/app specmatic/specmatic:2.49.1 stub --config specmatic.yaml
 ```
 
 ### 3. Specmatic Studio (GUI)
 
 Specmatic Studio provides a visual interface to explore specs, mock endpoints, and view coverage. From the **repo root**:
 
-```powershell
+**Windows & macOS / Linux:**
+```bash
 docker compose --profile studio up -d
 ```
 
 Access the dashboard at **[http://localhost:9000/_specmatic/studio](http://localhost:9000/_specmatic/studio)**.
 
 *(Note: When running Specmatic Studio via Docker Compose, the Stub server runs on port `9001` instead of `9000` to avoid port conflicts.)*
+
 ---
 
 ## 🔄 Arazzo Workflow Testing
@@ -173,11 +186,28 @@ The repository includes an Arazzo workflow definition for end-to-end API flow te
 - **Workflow file:** `CodeProofAnalysisWorkflow.arazzo.yaml`
 - **Input file:** `CodeProofAnalysisWorkflow.arazzo_input.json`
 
+> [!IMPORTANT]
+> **Specmatic Enterprise License Requirement:**
+> Running Arazzo workflow tests requires the Specmatic Enterprise edition. Please ensure you have a valid Specmatic Enterprise license file placed at the following location before running the tests:
+> - **Windows:** `%USERPROFILE%\.specmatic\specmatic-license.txt` (or `${env:USERPROFILE}/.specmatic/specmatic-license.txt`)
+> - **macOS / Linux:** `~/.specmatic/specmatic-license.txt` (or `$HOME/.specmatic/specmatic-license.txt`)
+> 
+> To set this up from scratch, create the folder and write your license content to `specmatic-license.txt`:
+> - **Windows (PowerShell):** `New-Item -ItemType Directory -Force -Path "${env:USERPROFILE}/.specmatic"`
+> - **macOS / Linux:** `mkdir -p ~/.specmatic`
+
+Run the workflow tests using the **Specmatic Enterprise** docker image from the **repo root**:
+
+**Windows (PowerShell):**
 ```powershell
-docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/specmatic:2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic.yaml
+docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/enterprise:2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic.yaml
 ```
 
----
+**macOS / Linux (Bash/Zsh):**
+```bash
+docker run --rm -v "$PWD:/usr/src/app" -v "$HOME/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/enterprise:2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic.yaml
+```
+-----
 
 ## 📋 CI/CD — GitHub Actions
 
