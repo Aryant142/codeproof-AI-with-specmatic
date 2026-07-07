@@ -131,6 +131,7 @@ jobs:
           echo "Running Specmatic Workflow Tests inside stub container..."
           docker exec \
             -e JAVA_TOOL_OPTIONS="-DUserApi=http://127.0.0.1:9000 -DInsightApi=http://127.0.0.1:9000 -DResourceApi=http://127.0.0.1:9000 -DAsyncAnalysisApi=127.0.0.1:9092" \
+            -e DISABLE_GENERATIVE_TESTS="true" \
             specmatic-stub \
             sh -c 'specmatic test /usr/src/app/CodeProofAnalysisWorkflow.arazzo.yaml --config /usr/src/app/specmatic.yaml' \
             > specmatic-workflow.log 2>&1 || workflow_exit_code=$?
