@@ -165,6 +165,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: specmatic-workflow-test-reports
-          path: build/reports/specmatic/
+          path: build/reports/specmatic/arazzo/
           retention-days: 14
 
