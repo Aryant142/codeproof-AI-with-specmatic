@@ -14,7 +14,7 @@
             "submitAnalysisSend": {
                 "requestId": "0651773704"
             },
-            "getUserProfile": {
+            "getUserProfileEmpty": {
                 "userEmail": "ebrtd@cytem.com"
             }
         }

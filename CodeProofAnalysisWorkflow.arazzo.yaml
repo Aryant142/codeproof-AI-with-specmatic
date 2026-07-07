@@ -127,7 +127,7 @@ workflows:
 - workflowId: "CodeProofAnalysisWorkflowEmpty"
   inputs:
     required:
-    - "getUserProfile"
+    - "getUserProfileEmpty"
     type: "object"
     properties:
       submitAnalysisSend:
@@ -135,7 +135,7 @@ workflows:
         properties:
           requestId:
             type: "string"
-      getUserProfile:
+      getUserProfileEmpty:
         required:
         - "userEmail"
         type: "object"
@@ -144,23 +144,23 @@ workflows:
             type: "string"
             format: "email"
   steps:
-  - stepId: "getUserProfile"
+  - stepId: "getUserProfileEmpty"
     operationId: "$sourceDescriptions.UserApi.getUserProfile"
     parameters:
     - name: "userEmail"
       in: "query"
-      value: "$inputs.getUserProfile.userEmail"
+      value: "$inputs.getUserProfileEmpty.userEmail"
     successCriteria:
     - condition: "$statusCode == 200"
     outputs:
       userId: "$response.body#/userId"
       profileCode: "$response.body#/profileCode"
-  - stepId: "getInsights"
+  - stepId: "getInsightsEmpty"
     operationId: "$sourceDescriptions.InsightApi.getInsights"
     parameters:
     - name: "profileCode"
       in: "query"
-      value: "$steps.getUserProfile.outputs.profileCode"
+      value: "$steps.getUserProfileEmpty.outputs.profileCode"
     successCriteria:
     - condition: "$statusCode == 200"
     - condition: "$response.body#/0 == null"
