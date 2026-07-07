@@ -145,6 +145,14 @@ jobs:
             exit $workflow_exit_code
           fi
 
+      - name: Print Docker Logs on Failure
+        if: always()
+        run: |
+          echo "=== Docker Containers Status ==="
+          docker ps -a
+          echo "=== Specmatic Stub Container Logs ==="
+          docker logs specmatic-stub 2>&1 || echo "No specmatic-stub logs found"
+
       - name: Upload Specmatic Contract Test Reports
         if: always()
         uses: actions/upload-artifact@v4
