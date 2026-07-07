@@ -9,7 +9,7 @@ info:
     email: codeproof@devs.io
 
 servers:
-  - url: http://stub:9000
+  - url: http://127.0.0.1:9000
     description: Local development server
 
 tags:

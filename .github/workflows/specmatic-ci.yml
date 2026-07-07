@@ -136,9 +136,7 @@ jobs:
             -v ${{ github.workspace }}:/usr/src/app \
             -w /usr/src/app \
             -e SPECMATIC_LICENSE_PATH=/tmp/.specmatic/specmatic-license.txt \
-            -e UserApi=http://127.0.0.1:9000 \
-            -e InsightApi=http://127.0.0.1:9000 \
-            -e ResourceApi=http://127.0.0.1:9000 \
+            -e JAVA_TOOL_OPTIONS="-DUserApi=http://127.0.0.1:9000 -DInsightApi=http://127.0.0.1:9000 -DResourceApi=http://127.0.0.1:9000 -DAsyncAnalysisApi=127.0.0.1:29092" \
             -e AsyncAnalysisApi=127.0.0.1:29092 \
             --add-host=stub:127.0.0.1 \
             --add-host=kafka:127.0.0.1 \
