@@ -77,7 +77,7 @@ jobs:
             --add-host=kafka:127.0.0.1 \
             --network host \
             specmatic/enterprise:1.20.0 \
-            stub --config specmatic.yaml --examples-dir=specs/mocks
+            stub --config specmatic.yaml
           
           echo "Waiting for Specmatic Enterprise Stub to start..."
           npx wait-on -t 30000 tcp:127.0.0.1:9000
@@ -118,7 +118,7 @@ jobs:
               --add-host=kafka:127.0.0.1 \
               --network host \
               specmatic/enterprise:1.20.0 \
-              stub --config specmatic.yaml --examples-dir=specs/mocks
+              stub --config specmatic.yaml
             echo "Waiting for stub to be ready on port 9000..."
             npx wait-on -t 30000 tcp:127.0.0.1:9000
             echo "Waiting 5s for stub to fully initialize..."
@@ -127,11 +127,13 @@ jobs:
           else
             echo "Stub is still running — no restart needed."
           fi
+          echo "Deleting empty mock examples from disk so that the Arazzo test runner does not generate extra workflow scenarios..."
+          rm -f specs/openapi/user_examples/get_profile_empty_200.json
+          rm -f specs/openapi/insight_examples/get_insights_empty_200.json
 
           echo "Running Specmatic Workflow Tests inside stub container..."
           docker exec \
             -e JAVA_TOOL_OPTIONS="-DUserApi=http://127.0.0.1:9000 -DInsightApi=http://127.0.0.1:9000 -DResourceApi=http://127.0.0.1:9000 -DAsyncAnalysisApi=127.0.0.1:9092" \
-            -e DISABLE_GENERATIVE_TESTS="true" \
             specmatic-stub \
             sh -c 'specmatic test /usr/src/app/CodeProofAnalysisWorkflow.arazzo.yaml --config /usr/src/app/specmatic.yaml' \
             > specmatic-workflow.log 2>&1 || workflow_exit_code=$?
