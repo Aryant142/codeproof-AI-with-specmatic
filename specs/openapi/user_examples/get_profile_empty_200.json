@@ -3,7 +3,7 @@
     "method": "GET",
     "path": "/profile",
     "query": {
-      "userEmail": "empty@codeproof.io"
+      "userEmail": "ebrtd@cytem.com"
     }
   },
   "http-response": {
