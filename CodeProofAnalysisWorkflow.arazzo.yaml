@@ -58,6 +58,8 @@ workflows:
       value: "$steps.getUserProfile.outputs.profileCode"
     successCriteria:
     - condition: "$statusCode == 200"
+    - condition: "$response.body#/0/productId != null"
+    - condition: "$response.body#/0/inventory != null"
     outputs:
       productId: "$response.body#/0/productId"
       inventory: "$response.body#/0/inventory"
