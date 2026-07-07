@@ -1,4 +1,4 @@
-# Trigger Run #9 with updated SPECMATIC_LICENSE_CONTENT secret
+# Trigger Run #10 with Enterprise stub for AsyncAPI/Kafka support
 name: Specmatic CI Pipeline
 
 on:
@@ -16,12 +16,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -37,6 +31,13 @@ jobs:
       - name: Start Kafka Services
         run: |
           docker compose up -d kafka
+          echo "Waiting for Kafka to be ready..."
+          npx wait-on -t 30000 tcp:127.0.0.1:29092
+          echo "Kafka is ready!"
+
+      - name: Pull Specmatic Enterprise Image
+        run: |
+          docker pull specmatic/enterprise:1.20.0
 
       - name: Start Express Application and Run Specmatic Tests
         env:
@@ -65,11 +66,22 @@ jobs:
           echo "Actual file line count: $(wc -l < /home/runner/.specmatic/specmatic-license.txt)"
           echo "Actual file SHA256: $(sha256sum /home/runner/.specmatic/specmatic-license.txt | cut -d' ' -f1)"
           
-          echo "Starting Specmatic Stubs on port 9000..."
-          npx specmatic@2.49.1 stub --port=9000 --config specmatic.yaml &
-          echo "Waiting for Specmatic Stubs to start..."
-          npx wait-on -t 20000 tcp:127.0.0.1:9000
-          echo "Specmatic Stubs started successfully!"
+          echo "Starting Specmatic Enterprise Stub on port 9000 (with AsyncAPI/Kafka support)..."
+          docker run -d --rm \
+            --name specmatic-stub \
+            -v /home/runner/.specmatic:/root/.specmatic \
+            -v ${{ github.workspace }}:/usr/src/app \
+            -w /usr/src/app \
+            -e SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt \
+            -e AsyncAnalysisApi=127.0.0.1:29092 \
+            --add-host=kafka:127.0.0.1 \
+            --network host \
+            specmatic/enterprise:1.20.0 \
+            stub --port=9000 --config specmatic.yaml
+          
+          echo "Waiting for Specmatic Enterprise Stub to start..."
+          npx wait-on -t 30000 tcp:127.0.0.1:9000
+          echo "Specmatic Enterprise Stub started successfully!"
           
           cd codeproof-main
           npm run dev &
@@ -128,3 +140,4 @@ jobs:
           name: specmatic-workflow-test-reports
           path: build/reports/specmatic/
           retention-days: 14
+
