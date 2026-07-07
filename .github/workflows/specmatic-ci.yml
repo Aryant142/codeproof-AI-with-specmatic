@@ -68,12 +68,13 @@ jobs:
           
           echo "Starting Specmatic Enterprise Stub on port 9000 (with AsyncAPI/Kafka support)..."
           mkdir -p build/reports/specmatic build/reports/contract-test
-          docker run -d --rm \
+          docker run -d \
             --name specmatic-stub \
             -v /home/runner/.specmatic:/root/.specmatic \
             -v ${{ github.workspace }}:/usr/src/app \
             -w /usr/src/app \
             -e SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt \
+            -e JAVA_TOOL_OPTIONS="-DUserApi=http://127.0.0.1:9000 -DInsightApi=http://127.0.0.1:9000 -DResourceApi=http://127.0.0.1:9000" \
             -e AsyncAnalysisApi=127.0.0.1:29092 \
             --add-host=kafka:127.0.0.1 \
             --network host \
@@ -101,19 +102,22 @@ jobs:
           echo "Backing up Contract Test Reports..."
           mkdir -p build/reports/contract-test
           sudo cp -r build/reports/specmatic/test/. build/reports/contract-test/
-          
+
           echo "Stub container status before workflow test:"
           docker ps | grep specmatic-stub || echo "WARNING: stub container is NOT running before workflow test!"
+          docker logs specmatic-stub 2>&1 | tail -20 || echo "Could not get stub logs"
 
           echo "Ensuring stub is running before workflow tests..."
           if ! docker ps --format '{{.Names}}' | grep -q specmatic-stub; then
             echo "Stub stopped — restarting for workflow tests..."
-            docker run -d --rm \
+            docker rm -f specmatic-stub 2>/dev/null || true
+            docker run -d \
               --name specmatic-stub \
               -v /home/runner/.specmatic:/root/.specmatic \
               -v ${{ github.workspace }}:/usr/src/app \
               -w /usr/src/app \
               -e SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt \
+              -e JAVA_TOOL_OPTIONS="-DUserApi=http://127.0.0.1:9000 -DInsightApi=http://127.0.0.1:9000 -DResourceApi=http://127.0.0.1:9000" \
               -e AsyncAnalysisApi=127.0.0.1:29092 \
               --add-host=kafka:127.0.0.1 \
               --network host \
@@ -126,25 +130,12 @@ jobs:
             echo "Stub is still running — no restart needed."
           fi
 
-          echo "Verifying stub health on port 9000..."
-          curl -sf http://127.0.0.1:9000/profile?userEmail=test@test.com -o /dev/null && echo "Stub is reachable!" || echo "WARNING: Stub health check failed!"
-          docker ps | grep specmatic-stub || echo "WARNING: specmatic-stub not found in docker ps!"
-          echo "Stub container logs (last 30 lines):"
-          docker logs specmatic-stub 2>&1 | tail -30 || echo "Could not get stub logs"
-
-          echo "Running Specmatic Workflow Tests..."
-          docker run --rm \
-            -v /home/runner/.specmatic:/tmp/.specmatic \
-            -v ${{ github.workspace }}:/usr/src/app \
-            -w /usr/src/app \
-            -e SPECMATIC_LICENSE_PATH=/tmp/.specmatic/specmatic-license.txt \
+          echo "Running Specmatic Workflow Tests inside stub container..."
+          docker exec \
             -e JAVA_TOOL_OPTIONS="-DUserApi=http://127.0.0.1:9000 -DInsightApi=http://127.0.0.1:9000 -DResourceApi=http://127.0.0.1:9000 -DAsyncAnalysisApi=127.0.0.1:29092" \
-            -e AsyncAnalysisApi=127.0.0.1:29092 \
-            --add-host=stub:127.0.0.1 \
-            --add-host=kafka:127.0.0.1 \
-            --network host \
-            specmatic/enterprise:1.20.0 \
-            test CodeProofAnalysisWorkflow.arazzo.yaml --config specmatic.yaml > specmatic-workflow.log 2>&1 || workflow_exit_code=$?
+            specmatic-stub \
+            sh -c 'specmatic test /usr/src/app/CodeProofAnalysisWorkflow.arazzo.yaml --config /usr/src/app/specmatic.yaml' \
+            > specmatic-workflow.log 2>&1 || workflow_exit_code=$?
           cat specmatic-workflow.log
 
           if [ ! -z "$contract_exit_code" ]; then
