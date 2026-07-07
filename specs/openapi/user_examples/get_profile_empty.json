@@ -1,0 +1,19 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/profile",
+    "query": {
+      "userEmail": "empty@codeproof.io"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "userId": "user_empty",
+      "profileCode": "EMPTY-CONTEXT"
+    }
+  }
+}
