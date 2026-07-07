@@ -9,20 +9,12 @@ dependencies:
   services:
     - service:
         $ref: "#/components/services/userService"
-      runOptions:
-        $ref: "#/components/runOptions/userServiceMock"
     - service:
         $ref: "#/components/services/insightService"
-      runOptions:
-        $ref: "#/components/runOptions/insightServiceMock"
     - service:
         $ref: "#/components/services/resourceService"
-      runOptions:
-        $ref: "#/components/runOptions/resourceServiceMock"
     - service:
         $ref: "#/components/services/analysisService"
-      runOptions:
-        $ref: "#/components/runOptions/analysisServiceMock"
 
 components:
   sources:
@@ -77,28 +69,6 @@ components:
         specs:
           - spec:
               id: apiSpec
-
-    userServiceMock:
-      openapi:
-        type: mock
-        host: 127.0.0.1
-        port: 9000
-    insightServiceMock:
-      openapi:
-        type: mock
-        host: 127.0.0.1
-        port: 9000
-    resourceServiceMock:
-      openapi:
-        type: mock
-        host: 127.0.0.1
-        port: 9000
-    analysisServiceMock:
-      asyncapi:
-        type: mock
-        servers:
-          - host: "127.0.0.1:29092"
-            protocol: kafka
 
 specmatic:
   governance:
