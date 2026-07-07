@@ -38,6 +38,12 @@ workflows:
           userEmail:
             type: "string"
             format: "email"
+      getUserProfileEmpty:
+        type: "object"
+        properties:
+          userEmail:
+            type: "string"
+            format: "email"
   steps:
   - stepId: "getUserProfile"
     operationId: "$sourceDescriptions.UserApi.getUserProfile"
@@ -138,6 +144,12 @@ workflows:
       getUserProfileEmpty:
         required:
         - "userEmail"
+        type: "object"
+        properties:
+          userEmail:
+            type: "string"
+            format: "email"
+      getUserProfile:
         type: "object"
         properties:
           userEmail:
