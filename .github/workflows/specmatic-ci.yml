@@ -97,8 +97,7 @@ jobs:
           
           echo "Backing up Contract Test Reports..."
           mkdir -p build/reports/contract-test
-          sudo cp -r build/reports/specmatic/. build/reports/contract-test/
-          sudo rm -rf build/reports/specmatic
+          sudo cp -r build/reports/specmatic/test/. build/reports/contract-test/
           
           echo "Running Specmatic Workflow Tests..."
           docker run --rm \
