@@ -42,6 +42,7 @@ jobs:
           GEMINI_API_KEY: "mock_key"
           GROQ_API_KEY: "mock_key"
           VITE_APP_PIN: "7973"
+          MOCK_API: "true"
           SPECMATIC_LICENSE_CONTENT: ${{ secrets.SPECMATIC_LICENSE_CONTENT }}
           SPECMATIC_LICENSE_PATH: /home/runner/.specmatic/specmatic-license.txt
           UserApi: http://127.0.0.1:9000

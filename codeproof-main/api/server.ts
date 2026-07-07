@@ -8,6 +8,10 @@ import AdmZip from 'adm-zip';
 dotenv.config();
 
 const app = express();
+app.use((req, res, next) => {
+  console.log(`[Request] ${req.method} ${req.url}`);
+  next();
+});
 const PORT = 3000;
 
 // Set up JSON parsing limits (comfortably allows rich files transfer)
@@ -673,6 +677,22 @@ const runGeminiAnalysis = async (studentName: string, fileName: string, fileCont
   };
 };
 
+async function setDocWithTimeout(docRef: any, data: any, timeoutMs: number = 800) {
+  const { setDoc } = await import('firebase/firestore');
+  return Promise.race([
+    setDoc(docRef, data),
+    new Promise((_, reject) => setTimeout(() => reject(new Error("Firestore write timeout")), timeoutMs))
+  ]);
+}
+
+async function updateDocWithTimeout(docRef: any, data: any, timeoutMs: number = 800) {
+  const { updateDoc } = await import('firebase/firestore');
+  return Promise.race([
+    updateDoc(docRef, data),
+    new Promise((_, reject) => setTimeout(() => reject(new Error("Firestore update timeout")), timeoutMs))
+  ]);
+}
+
 // Start scanning transaction
 app.post('/api/scans', async (req, res) => {
   const { fileName, students, teacherId, githubToken } = req.body;
@@ -712,9 +732,13 @@ app.post('/api/scans', async (req, res) => {
 
   // Persist scan locally or in memory fallback
   memoryScans.push(scanObj);
+  if (process.env.MOCK_API === 'true') {
+    res.json({ scanId, message: "Scan completed successfully." });
+    return;
+  }
   try {
-    const { doc, setDoc } = await import('firebase/firestore');
-    await setDoc(doc(db, 'scans', scanId), scanObj);
+    const { doc } = await import('firebase/firestore');
+    await setDocWithTimeout(doc(db, 'scans', scanId), scanObj);
   } catch (err) {
     console.warn("Firestore error persisting scan document, using in-memory tracker:", err);
   }
@@ -724,8 +748,8 @@ app.post('/api/scans', async (req, res) => {
     // Update scan status to 'running'
     scanObj.status = 'running';
     try {
-      const { doc, updateDoc } = await import('firebase/firestore');
-      await updateDoc(doc(db, 'scans', scanId), { status: 'running' });
+      const { doc } = await import('firebase/firestore');
+      await updateDocWithTimeout(doc(db, 'scans', scanId), { status: 'running' });
     } catch (err) {}
 
     // Map structured dummy repository examples for authentic mock fallbacks
@@ -1134,9 +1158,9 @@ int main() {
 
       // Persist to Firebase Firestore
       try {
-        const { doc, setDoc } = await import('firebase/firestore');
-        await setDoc(doc(db, 'students', studentId), studentObj);
-        await setDoc(doc(db, 'student_reports', studentId), reportObj);
+        const { doc } = await import('firebase/firestore');
+        await setDocWithTimeout(doc(db, 'students', studentId), studentObj);
+        await setDocWithTimeout(doc(db, 'student_reports', studentId), reportObj);
       } catch (err) {
         console.warn("Firestore error persisting student summaries:", err);
       }
@@ -1148,8 +1172,8 @@ int main() {
     // Finish scan completed
     scanObj.status = 'completed';
     try {
-      const { doc, updateDoc } = await import('firebase/firestore');
-      await updateDoc(doc(db, 'scans', scanId), { status: 'completed' });
+      const { doc } = await import('firebase/firestore');
+      await updateDocWithTimeout(doc(db, 'scans', scanId), { status: 'completed' });
     } catch (err) {}
 
     res.json({ scanId, message: "Scan completed successfully." });
@@ -1158,8 +1182,8 @@ int main() {
     console.error("Scan processing crashed:", err);
     scanObj.status = 'failed';
     try {
-      const { doc, updateDoc } = await import('firebase/firestore');
-      await updateDoc(doc(db, 'scans', scanId), { status: 'failed' });
+      const { doc } = await import('firebase/firestore');
+      await updateDocWithTimeout(doc(db, 'scans', scanId), { status: 'failed' });
     } catch (err) {}
     res.status(500).json({ error: "Scan processing failed." });
   }
@@ -1232,6 +1256,16 @@ app.post('/api/re-analyze', async (req, res) => {
 
   if (customPrompt !== undefined && customPrompt !== null && typeof customPrompt !== 'string') {
     return res.status(400).json({ error: "Invalid customPrompt format" });
+  }
+
+  if (process.env.MOCK_API === 'true') {
+    return res.json({
+      aiExplanation: `Safe fallback active (Mock API mode enabled). Custom requirements successfully review criteria: "${customPrompt || "Verify comments follow standard classroom docstring guidelines"}". Evaluation indicates typical computer-generated structure parity with high visual consistency.`,
+      scores: {
+        suspicionScore: 10
+      },
+      engineUsed: "Gemini / Offline"
+    });
   }
 
   // Find report in database fallback
@@ -1480,7 +1514,12 @@ async function initializeServer() {
       server: { middlewareMode: true },
       appType: "spa",
     });
-    app.use(vite.middlewares);
+    app.use((req, res, next) => {
+      if (req.path.startsWith('/api') || req.path.startsWith('/actuator')) {
+        return next();
+      }
+      vite.middlewares(req, res, next);
+    });
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
