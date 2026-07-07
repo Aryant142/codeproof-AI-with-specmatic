@@ -126,6 +126,10 @@ jobs:
             echo "Stub is still running — no restart needed."
           fi
 
+          echo "Verifying stub health on port 9000..."
+          curl -sf http://127.0.0.1:9000/profile?userEmail=test@test.com -o /dev/null && echo "Stub is reachable!" || echo "WARNING: Stub health check failed!"
+          docker ps | grep specmatic-stub || echo "WARNING: specmatic-stub not found in docker ps!"
+
           echo "Running Specmatic Workflow Tests..."
           docker run --rm \
             -v /home/runner/.specmatic:/tmp/.specmatic \
@@ -140,7 +144,7 @@ jobs:
             --add-host=kafka:127.0.0.1 \
             --network host \
             specmatic/enterprise:1.20.0 \
-            test CodeProofAnalysisWorkflow.arazzo.yaml --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-workflow.log 2>&1 || workflow_exit_code=$?
+            test CodeProofAnalysisWorkflow.arazzo.yaml --config specmatic.yaml > specmatic-workflow.log 2>&1 || workflow_exit_code=$?
           cat specmatic-workflow.log
 
           if [ ! -z "$contract_exit_code" ]; then
