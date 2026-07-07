@@ -130,6 +130,11 @@ workflows:
     - "getUserProfile"
     type: "object"
     properties:
+      submitAnalysisSend:
+        type: "object"
+        properties:
+          requestId:
+            type: "string"
       getUserProfile:
         required:
         - "userEmail"
