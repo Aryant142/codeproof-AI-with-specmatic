@@ -9,12 +9,20 @@ dependencies:
   services:
     - service:
         $ref: "#/components/services/userService"
+      host: 127.0.0.1
+      port: 9000
     - service:
         $ref: "#/components/services/insightService"
+      host: 127.0.0.1
+      port: 9000
     - service:
         $ref: "#/components/services/resourceService"
+      host: 127.0.0.1
+      port: 9000
     - service:
         $ref: "#/components/services/analysisService"
+      host: 127.0.0.1
+      port: 29092
 
 components:
   sources:
