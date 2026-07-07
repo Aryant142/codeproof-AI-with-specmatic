@@ -70,7 +70,6 @@ jobs:
           mkdir -p build/reports/specmatic build/reports/contract-test
           docker run -d --rm \
             --name specmatic-stub \
-            --user $(id -u):$(id -g) \
             -v /home/runner/.specmatic:/tmp/.specmatic \
             -v ${{ github.workspace }}:/usr/src/app \
             -w /usr/src/app \
@@ -98,12 +97,11 @@ jobs:
           
           echo "Backing up Contract Test Reports..."
           mkdir -p build/reports/contract-test
-          cp -r build/reports/specmatic/. build/reports/contract-test/
-          rm -rf build/reports/specmatic
+          sudo cp -r build/reports/specmatic/. build/reports/contract-test/
+          sudo rm -rf build/reports/specmatic
           
           echo "Running Specmatic Workflow Tests..."
           docker run --rm \
-            --user $(id -u):$(id -g) \
             -v /home/runner/.specmatic:/tmp/.specmatic \
             -v ${{ github.workspace }}:/usr/src/app \
             -w /usr/src/app \
