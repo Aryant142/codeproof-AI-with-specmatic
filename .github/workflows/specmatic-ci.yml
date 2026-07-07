@@ -70,6 +70,7 @@ jobs:
           mkdir -p build/reports/specmatic build/reports/contract-test
           docker run -d --rm \
             --name specmatic-stub \
+            --user $(id -u):$(id -g) \
             -v /home/runner/.specmatic:/root/.specmatic \
             -v ${{ github.workspace }}:/usr/src/app \
             -w /usr/src/app \
@@ -102,6 +103,7 @@ jobs:
           
           echo "Running Specmatic Workflow Tests..."
           docker run --rm \
+            --user $(id -u):$(id -g) \
             -v /home/runner/.specmatic:/root/.specmatic \
             -v ${{ github.workspace }}:/usr/src/app \
             -w /usr/src/app \
