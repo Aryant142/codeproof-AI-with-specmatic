@@ -47,6 +47,7 @@ codeproof/                              ← repo root (Specmatic config lives he
 |
 |
 ├── specmatic.yaml                      ← Specmatic config: test & stub sources
+├── specmatic-workflow.yaml             ← Specmatic config: workflow tests (isolated)
 ├── docker-compose.yml                  ← Specmatic Studio + stub server compose file
 ├── CodeProofAnalysisWorkflow.arazzo.yaml   ← Arazzo workflow definition
 ├── CodeProofAnalysisWorkflow.arazzo_input.json ← Arazzo workflow test inputs
@@ -60,8 +61,12 @@ codeproof/                              ← repo root (Specmatic config lives he
 │   │   ├── user.yaml                   ← User Profile microservice stub
 │   │   ├── insight.yaml                ← Insights microservice stub
 │   │   └── resource.yaml               ← Resources microservice stub
-│   └── asyncapi/
-│       └── analysis.yaml               ← AsyncAPI spec for Kafka analysis events
+│   ├── asyncapi/
+│   │   └── analysis.yaml               ← AsyncAPI spec for Kafka analysis events
+│   └── workflow_specs/                 ← Spec copies for Arazzo workflow runner (isolated)
+│       ├── user.yaml
+│       ├── insight.yaml
+│       └── resource.yaml
 │
 └── codeproof-main/                     ← ⚡ THE APPLICATION (run all npm commands here)
     ├── api/
@@ -200,12 +205,12 @@ Run the workflow tests using the **Specmatic Enterprise** docker image from the 
 
 **Windows (PowerShell):**
 ```powershell
-docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/enterprise:2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic.yaml
+docker run --rm -v "${PWD}:/usr/src/app" -v "${env:USERPROFILE}/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/enterprise:1.20.0 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic-workflow.yaml
 ```
 
 **macOS / Linux (Bash/Zsh):**
 ```bash
-docker run --rm -v "$PWD:/usr/src/app" -v "$HOME/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/enterprise:2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic.yaml
+docker run --rm -v "$PWD:/usr/src/app" -v "$HOME/.specmatic:/root/.specmatic" -w /usr/src/app specmatic/enterprise:1.20.0 test CodeProofAnalysisWorkflow.arazzo.yaml --host=host.docker.internal --port=3000 --config specmatic-workflow.yaml
 ```
 -----
 
