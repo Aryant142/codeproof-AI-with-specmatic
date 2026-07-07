@@ -1,0 +1,23 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/insights",
+    "query": {
+      "profileCode": "STUDENT-CONTEXT"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "productId": 101,
+        "name": "Plagiarism analysis report",
+        "price": 0.0,
+        "inventory": 10
+      }
+    ]
+  }
+}

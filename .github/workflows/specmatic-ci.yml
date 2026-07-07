@@ -77,7 +77,7 @@ jobs:
             --add-host=kafka:127.0.0.1 \
             --network host \
             specmatic/enterprise:1.20.0 \
-            stub --config specmatic.yaml
+            stub --config specmatic.yaml --examples-dir=specs/mocks
           
           echo "Waiting for Specmatic Enterprise Stub to start..."
           npx wait-on -t 30000 tcp:127.0.0.1:9000
@@ -118,7 +118,7 @@ jobs:
               --add-host=kafka:127.0.0.1 \
               --network host \
               specmatic/enterprise:1.20.0 \
-              stub --config specmatic.yaml
+              stub --config specmatic.yaml --examples-dir=specs/mocks
             echo "Waiting for stub to be ready on port 9000..."
             npx wait-on -t 30000 tcp:127.0.0.1:9000
             echo "Waiting 5s for stub to fully initialize..."
