@@ -6,9 +6,6 @@
             },
             "getUserProfile": {
                 "userEmail": "emprc@crdfi.com"
-            },
-            "getUserProfileEmpty": {
-                "userEmail": "emprc@crdfi.com"
             }
         }
     },
@@ -18,9 +15,6 @@
                 "requestId": "0651773704"
             },
             "getUserProfileEmpty": {
-                "userEmail": "ebrtd@cytem.com"
-            },
-            "getUserProfile": {
                 "userEmail": "ebrtd@cytem.com"
             }
         }
