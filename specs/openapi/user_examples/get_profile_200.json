@@ -3,7 +3,7 @@
     "method": "GET",
     "path": "/profile",
     "query": {
-      "userEmail": "student@codeproof.io"
+      "userEmail": "emprc@crdfi.com"
     }
   },
   "http-response": {
