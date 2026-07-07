@@ -58,11 +58,6 @@ workflows:
       value: "$steps.getUserProfile.outputs.profileCode"
     successCriteria:
     - condition: "$statusCode == 200"
-    onSuccess:
-    - name: "IsArrayEmpty"
-      type: "end"
-      criteria:
-      - condition: "$response.body#/0 == null"
     outputs:
       productId: "$response.body#/0/productId"
       inventory: "$response.body#/0/inventory"
@@ -126,4 +121,41 @@ workflows:
       value: "$steps.reportGenerated.outputs.insightId"
     successCriteria:
     - condition: "$statusCode == 200"
+
+- workflowId: "CodeProofAnalysisWorkflowEmpty"
+  inputs:
+    required:
+    - "getUserProfile"
+    type: "object"
+    properties:
+      getUserProfile:
+        required:
+        - "userEmail"
+        type: "object"
+        properties:
+          userEmail:
+            type: "string"
+            format: "email"
+  steps:
+  - stepId: "getUserProfile"
+    operationId: "$sourceDescriptions.UserApi.getUserProfile"
+    parameters:
+    - name: "userEmail"
+      in: "query"
+      value: "$inputs.getUserProfile.userEmail"
+    successCriteria:
+    - condition: "$statusCode == 200"
+    outputs:
+      userId: "$response.body#/userId"
+      profileCode: "$response.body#/profileCode"
+  - stepId: "getInsights"
+    operationId: "$sourceDescriptions.InsightApi.getInsights"
+    parameters:
+    - name: "profileCode"
+      in: "query"
+      value: "$steps.getUserProfile.outputs.profileCode"
+    successCriteria:
+    - condition: "$statusCode == 200"
+    - condition: "$response.body#/0 == null"
+
 components: {}

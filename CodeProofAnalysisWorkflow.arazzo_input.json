@@ -7,8 +7,10 @@
             "getUserProfile": {
                 "userEmail": "emprc@crdfi.com"
             }
-        },
-        "getInsights.IsArrayEmpty": {
+        }
+    },
+    "CodeProofAnalysisWorkflowEmpty": {
+        "DEFAULT": {
             "getUserProfile": {
                 "userEmail": "ebrtd@cytem.com"
             }
