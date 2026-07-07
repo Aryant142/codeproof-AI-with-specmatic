@@ -67,6 +67,7 @@ jobs:
           echo "Actual file SHA256: $(sha256sum /home/runner/.specmatic/specmatic-license.txt | cut -d' ' -f1)"
           
           echo "Starting Specmatic Enterprise Stub on port 9000 (with AsyncAPI/Kafka support)..."
+          mkdir -p build/reports/specmatic build/reports/contract-test
           docker run -d --rm \
             --name specmatic-stub \
             -v /home/runner/.specmatic:/root/.specmatic \
