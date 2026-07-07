@@ -78,16 +78,33 @@ jobs:
           cd ..
           
           echo "Running Specmatic Contract Tests..."
-          npx specmatic@2.49.1 test --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-test.log 2>&1 || echo "Specmatic test exited with code $?"
+          npx specmatic@2.49.1 test --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-test.log 2>&1 || contract_exit_code=$?
           cat specmatic-test.log
           
           echo "Backing up Contract Test Reports..."
           mkdir -p build/reports/contract-test
-          cp -r build/reports/specmatic/test/ build/reports/contract-test/
+          cp -r build/reports/specmatic/. build/reports/contract-test/
+          rm -rf build/reports/specmatic
           
           echo "Running Specmatic Workflow Tests..."
-          npx specmatic@2.49.1 test CodeProofAnalysisWorkflow.arazzo.yaml --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-workflow.log 2>&1 || echo "Specmatic workflow exited with code $?"
+          docker run --rm \
+            -v /home/runner/.specmatic:/root/.specmatic \
+            -v ${{ github.workspace }}:/usr/src/app \
+            -w /usr/src/app \
+            -e SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt \
+            --network host \
+            specmatic/enterprise:2.49.1 \
+            test CodeProofAnalysisWorkflow.arazzo.yaml --host=127.0.0.1 --port=3000 --config specmatic.yaml > specmatic-workflow.log 2>&1 || workflow_exit_code=$?
           cat specmatic-workflow.log
+
+          if [ ! -z "$contract_exit_code" ]; then
+            echo "Contract tests failed with exit code $contract_exit_code"
+            exit $contract_exit_code
+          fi
+          if [ ! -z "$workflow_exit_code" ]; then
+            echo "Workflow tests failed with exit code $workflow_exit_code"
+            exit $workflow_exit_code
+          fi
 
       - name: Upload Specmatic Contract Test Reports
         if: always()
