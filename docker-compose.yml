@@ -8,13 +8,12 @@ services:
     volumes:
       - .:/usr/src/app
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${USERPROFILE}/.specmatic:/root/.specmatic
     environment:
       - UserApi=http://stub:9000
       - InsightApi=http://stub:9000
       - ResourceApi=http://stub:9000
       - AsyncAnalysisApi=kafka:29092
-      - SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt
+      - SPECMATIC_LICENSE_CONTENT
     command: ["studio"]
     depends_on:
       - stub
@@ -25,10 +24,9 @@ services:
       - "9001:9000"
     volumes:
       - .:/usr/src/app
-      - ${USERPROFILE}/.specmatic:/root/.specmatic
     working_dir: /usr/src/app
     environment:
-      - SPECMATIC_LICENSE_PATH=/root/.specmatic/specmatic-license.txt
+      - SPECMATIC_LICENSE_CONTENT
     command: ["stub", "--config", "specmatic.yaml"]
     depends_on:
       - kafka
